@@ -1,0 +1,199 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">{{title}}</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="#">
+          <i class="fas fa-home"></i>
+        </a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <i class="fas fa-building current-page-icon"></i>
+        <a href="#">{{title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title">Все организации</h4>
+            <button class="btn btn-primary btn-round ml-auto">
+              <i class="fa fa-plus"></i>
+              Создать
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <div id="multi-filter-select_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="dataTables_length" id="multi-filter-select_length"><label>Показать по <select
+                    name="multi-filter-select_length" aria-controls="multi-filter-select"
+                    class="form-control form-control-sm">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select> записей</label></div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div id="multi-filter-select_filter" class="dataTables_filter"><label>Поиск:<input type="search"
+                                                                                                      class="form-control form-control-sm"
+                                                                                                      placeholder=""
+                                                                                                      aria-controls="multi-filter-select"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table id="multi-filter-select" class="display table table-striped table-hover dataTable"
+                         role="grid" aria-describedby="multi-filter-select_info">
+                    <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="ID: activate to sort column descending" style="width: 50.719px;"
+                          aria-sort="ascending">ID
+                      </th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="Name: activate to sort column descending" style="width: 278.719px;"
+                          aria-sort="ascending">Название орг.
+                      </th>
+                      <th class="sorting" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="Age: activate to sort column ascending" style="width: 278.719px;">ФИО менеджера
+                      </th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="IBAN: activate to sort column descending" style="width: 200.719px;"
+                          aria-sort="ascending">IBAN
+                      </th>
+                      <th class="sorting" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="Start date: activate to sort column ascending" style="width: 200.547px;">ИИН
+                      </th>
+                      <th class="sorting" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="Email: activate to sort column ascending" style="width: 278.188px;">Email
+                      </th>
+                      <th class="sorting" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="Office: activate to sort column ascending" style="width: 179.516px;">Тел. номер
+                      </th>
+                      <th class="sorting" tabindex="0" aria-controls="multi-filter-select" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending" style="width: 178.609px;">Адрес
+                      </th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    </tfoot>
+                    <tbody>
+
+
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Airi Satou</td>
+                      <td>Accountant</td>
+                      <td>Tokyo</td>
+                      <td>33</td>
+                      <td>2008/11/28</td>
+                      <td>$162,700</td>
+                      <td>$162,700</td>
+                      <td>$162,700</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Angelica Ramos</td>
+                      <td>Chief Executive Officer (CEO)</td>
+                      <td>London</td>
+                      <td>47</td>
+                      <td>2009/10/09</td>
+                      <td>$1,200,000</td>
+                      <td>$1,200,000</td>
+                      <td>$1,200,000</td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Ashton Cox</td>
+                      <td>Junior Technical Author</td>
+                      <td>San Francisco</td>
+                      <td>66</td>
+                      <td>2009/01/12</td>
+                      <td>$86,000</td>
+                      <td>$86,000</td>
+                      <td>$86,000</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Bradley Greer</td>
+                      <td>Software Engineer</td>
+                      <td>London</td>
+                      <td>41</td>
+                      <td>2012/10/13</td>
+                      <td>$132,000</td>
+                      <td>$132,000</td>
+                      <td>$132,000</td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Brenden Wagner</td>
+                      <td>Software Engineer</td>
+                      <td>San Francisco</td>
+                      <td>28</td>
+                      <td>2011/06/07</td>
+                      <td>$206,850</td>
+                      <td>$206,850</td>
+                      <td>$206,850</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-5">
+                  <div class="dataTables_info" id="multi-filter-select_info" role="status" aria-live="polite">Показано
+                    1-5 из 57 записей
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="multi-filter-select_paginate">
+                    <ul class="pagination">
+                      <li class="paginate_button page-item previous disabled" id="multi-filter-select_previous"><a
+                        href="#" aria-controls="multi-filter-select" data-dt-idx="0" tabindex="0" class="page-link">Пред.</a>
+                      </li>
+                      <li class="paginate_button page-item active"><a href="#" aria-controls="multi-filter-select"
+                                                                      data-dt-idx="1" tabindex="0"
+                                                                      class="page-link">1</a></li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="multi-filter-select"
+                                                                data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                      </li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="multi-filter-select"
+                                                                data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                      </li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="multi-filter-select"
+                                                                data-dt-idx="4" tabindex="0" class="page-link">4</a>
+                      </li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="multi-filter-select"
+                                                                data-dt-idx="5" tabindex="0" class="page-link">5</a>
+                      </li>
+                      <li class="paginate_button page-item disabled" id="multi-filter-select_ellipsis"><a href="#"
+                                                                                                          aria-controls="multi-filter-select"
+                                                                                                          data-dt-idx="6"
+                                                                                                          tabindex="0"
+                                                                                                          class="page-link">…</a>
+                      </li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="multi-filter-select"
+                                                                data-dt-idx="7" tabindex="0" class="page-link">12</a>
+                      </li>
+                      <li class="paginate_button page-item next" id="multi-filter-select_next"><a href="#"
+                                                                                                  aria-controls="multi-filter-select"
+                                                                                                  data-dt-idx="8"
+                                                                                                  tabindex="0"
+                                                                                                  class="page-link">След.</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

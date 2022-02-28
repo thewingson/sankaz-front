@@ -1,0 +1,95 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">{{title}}</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="#">
+          <i class="flaticon-home"></i>
+        </a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-8 center">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">{{title}}</div>
+        </div>
+        <div class="card-body">
+          <div class="row form-group">
+            <div class="col-12">
+              <label for="san">Санаторий</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="san"  placeholder="Выберите санаторий"><!--aria-label="Recipient's username" aria-describedby="basic-addon2"-->
+                <div class="input-group-append">
+                  <button class="btn btn-secondary">
+											<span class="btn-label">
+												<i class="fa fa-plus"></i>
+											</span>
+                    Выбрать
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-8">
+              <label for="roomName">Название номера</label>
+              <input type="text" class="form-control" id="roomName" placeholder="Введите название номера">
+            </div>
+            <div class="col-4">
+              <label for="price">Цена за 1-го</label>
+              <input type="text" class="form-control" id="price" placeholder="Введите цену">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-12">
+              <label for="description">Описание</label>
+              <textarea class="form-control" id="description" rows="5">
+										</textarea>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-2">
+              <div class="avatar-group">
+                <div class="avatar avatar-xxl">
+                  <img src="../../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle border border-white">
+                </div>
+                <div class="avatar avatar-xxl">
+                  <img src="../../assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle border border-white">
+                </div>
+                <div class="avatar avatar-xxl">
+                  <img src="../../assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle border border-white">
+                </div>
+                <div class="avatar avatar-xxl">
+                  <span class="avatar-title rounded-circle border border-white">
+                    <button type="button" class="btn btn-icon btn-round btn-success avatar-title rounded-circle border border-white btn-add-image">
+                    <i class="fa fa-plus icon-add-image"></i>
+                  </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-action">
+          <button class="btn btn-success">Сохранить</button>
+          <button class="btn btn-danger">Отменить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

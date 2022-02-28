@@ -1,0 +1,216 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">{{title}}</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="#">
+          <i class="flaticon-home"></i>
+        </a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-8 center">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">{{title}}</div>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="name">Название санатория</label>
+            <input type="text" class="form-control" id="name" placeholder="Введите название санатория">
+          </div>
+          <div class="row form-group">
+            <div class="col-6">
+              <label for="city">Город</label>
+              <select class="form-control form-control" id="city">
+                <option>Тест 1</option>
+                <option>Тест 2</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="sanType">Тип</label>
+              <select class="form-control form-control" id="sanType">
+                <option>Тест 1</option>
+                <option>Тест 2</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-6">
+              <label for="inst">Ссылка на Instagram</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3-inst">https://www.instagram.com/</span>
+                </div>
+                <input type="text" class="form-control" id="inst" aria-describedby="basic-addon3-inst">
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="site">Ссылка на сайт</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3-site">https://example.com</span>
+                </div>
+                <input type="text" class="form-control" id="site" aria-describedby="basic-addon3-site">
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="d-flex align-items-center">
+                    <h4 class="card-title">Тел. номера</h4>
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                      <i class="fa fa-plus"></i>
+                      Добавить
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <!-- Modal -->
+                  <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header no-bd">
+                          <h5 class="modal-title">
+														<span class="fw-mediumbold">
+														New</span>
+                            <span class="fw-light">
+															Row
+														</span>
+                          </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="small">Create a new row using this form, make sure you fill them all</p>
+                          <form>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group form-group-default">
+                                  <label>Name</label>
+                                  <input id="addName" type="text" class="form-control" placeholder="fill name">
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer no-bd">
+                          <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="table-responsive">
+                    <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table id="add-row" class="display table table-striped table-hover dataTable" role="grid"
+                                 aria-describedby="add-row_info">
+                            <thead>
+                            <tr role="row">
+                              <th class="col-sm-10" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
+                                  aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                  >Номер
+                              </th>
+                              <th class="col-sm-2" tabindex="0" aria-controls="add-row"
+                                  rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Действие
+                              </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            <tr role="row" class="odd">
+                              <td class="sorting_1">+77777777777</td>
+                              <td>
+                                <div class="form-button-action">
+                                  <button type="button" data-toggle="tooltip" title=""
+                                          class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                    <i class="fa fa-edit"></i>
+                                  </button>
+                                  <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                          data-original-title="Remove">
+                                    <i class="fa fa-times"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr role="row" class="even">
+                              <td class="sorting_1">+77000000000</td>
+                              <td>
+                                <div class="form-button-action">
+                                  <button type="button" data-toggle="tooltip" title=""
+                                          class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                    <i class="fa fa-edit"></i>
+                                  </button>
+                                  <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                          data-original-title="Remove">
+                                    <i class="fa fa-times"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--            <div class="col-6">-->
+            <!--              <label for="telNumber">Тел. номер</label>-->
+            <!--              <input type="text" class="form-control" id="telNumber" placeholder="Введите тел. номер">-->
+            <!--            </div>-->
+          </div>
+          <div class="row form-group">
+            <div class="col-12">
+              <label for="description">Описание</label>
+              <textarea class="form-control" id="description" rows="5">
+										</textarea>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-2">
+              <div class="avatar avatar-xxl">
+                <img src="../../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="avatar avatar-xxl">
+                <button type="button" class="btn btn-icon btn-round btn-success btn-add-image">
+                  <i class="fa fa-plus icon-add-image"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-action">
+          <button class="btn btn-success">Сохранить</button>
+          <button class="btn btn-danger">Отменить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
