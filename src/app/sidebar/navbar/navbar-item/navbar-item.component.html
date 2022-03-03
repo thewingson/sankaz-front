@@ -5,7 +5,7 @@
 </a>
 
 <ng-template #noChilds>
-  <a href="{{navItem.routeLink}}">
+  <a [routerLink]="navItem.routeLink"  href="#">
     <i class="fas {{navItem.iconName}}"></i>
     <p>{{navItem.nameRu}}</p>
     <span class="caret" *ngIf="navItem.childItems != null"></span>
@@ -15,7 +15,7 @@
 <div class="collapse" id="{{navItem.routeLink}}" style="" *ngIf="navItem.childItems != null">
   <ul class="nav nav-collapse">
     <li *ngFor="let childItem of navItem.childItems">
-      <a href="{{childItem.routeLink}}">
+      <a [routerLink]="childItem.routeLink">
         <span class="sub-item">{{childItem.nameRu}}</span>
       </a>
     </li>

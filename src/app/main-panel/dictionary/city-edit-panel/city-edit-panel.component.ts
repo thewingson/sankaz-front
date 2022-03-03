@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CityEditPanelComponent implements OnInit {
   title = 'Город';
-
   constructor() { }
 
   ngOnInit(): void {

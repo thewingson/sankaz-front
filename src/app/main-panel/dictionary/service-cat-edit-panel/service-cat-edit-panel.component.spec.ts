@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SanTypeEditPanelComponent } from './san-type-edit-panel.component';
+import { ServiceCatEditPanelComponent } from './service-cat-edit-panel.component';
 
 describe('SanTypeEditPanelComponent', () => {
-  let component: SanTypeEditPanelComponent;
-  let fixture: ComponentFixture<SanTypeEditPanelComponent>;
+  let component: ServiceCatEditPanelComponent;
+  let fixture: ComponentFixture<ServiceCatEditPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SanTypeEditPanelComponent ]
+      declarations: [ ServiceCatEditPanelComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SanTypeEditPanelComponent);
+    fixture = TestBed.createComponent(ServiceCatEditPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

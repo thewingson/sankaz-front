@@ -6,8 +6,8 @@ import {AppComponent} from './app.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {MainHeaderComponent} from './main-header/main-header.component';
 import {MainPanelComponent} from './main-panel/main-panel.component';
-import {FormsModule} from "@angular/forms";
-import {Route, RouterModule, Routes} from "@angular/router";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { RouterModule, Routes} from "@angular/router";
 import {SanPanelComponent} from './main-panel/san-panel/san-panel.component';
 import {OrgPanelComponent} from './main-panel/org-panel/org-panel.component';
 import {UserPanelComponent} from './main-panel/user-panel/user-panel.component';
@@ -24,27 +24,28 @@ import {UserProfileComponent} from './main-panel/user-profile/user-profile.compo
 import {LoginComponent} from './login/login.component';
 import {MainComponent} from './main/main.component';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {ServiceCatEditPanelComponent} from "./main-panel/dictionary/service-cat-edit-panel/service-cat-edit-panel.component";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 const appRoutes : Routes = [
-  { path:'', component:MainComponent },
+  { path:'', redirectTo:'/main', pathMatch:'full' },
+  { path:'login', component:LoginComponent },
   {
     path:'main', component:MainComponent,
     children:[
       {path:'san', component:SanPanelComponent},
-      {path:'san/edit', component:SanEditPanelComponent},
       {path:'org', component:OrgPanelComponent},
-      {path:'org/edit', component:OrgEditPanelComponent},
       {path:'user', component:UserPanelComponent},
-      {path:'user/edit', component:UserProfileComponent},
-
-      {path:'dict/city/edit', component:CityEditPanelComponent},
-      {path:'dict/comp-cat/edit', component:CompCatEditPanelComponent},
-      {path:'dict/gender/edit', component:GenderEditPanelComponent},
-      {path:'dict/san-type/edit', component:SanTypeEditPanelComponent}
+      {path:'dict',children:[
+          {path:'city/edit', component:CityEditPanelComponent},
+          {path:'comp-cat/edit', component:CompCatEditPanelComponent},
+          {path:'gender/edit', component:GenderEditPanelComponent},
+          {path:'san-type/edit', component:SanTypeEditPanelComponent},
+          {path:'service-cat/edit', component:ServiceCatEditPanelComponent},
+        ]}
     ]
   },
-  { path:'login', component:LoginComponent },
-  { path:'**', component:NotFoundComponent }
+  { path:'**', component:NotFoundComponent },
 ]
 
 @NgModule({
@@ -68,15 +69,18 @@ const appRoutes : Routes = [
     UserProfileComponent,
     LoginComponent,
     MainComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ServiceCatEditPanelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
     ,RouterModule.forRoot(appRoutes)
   ],
-  exports: [RouterModule],
+  exports: [RouterModule,FormsModule,ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
