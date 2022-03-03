@@ -1,0 +1,315 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">{{title}}</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="#">
+          <i class="flaticon-home"></i>
+        </a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">Cправочники</a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title">Все катеогрии</h4>
+            <!--            <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">-->
+            <!--              <i class="fa fa-plus"></i>-->
+            <!--              Add Row-->
+            <!--            </button>-->
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Modal -->
+          <!--          <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+          <!--            <div class="modal-dialog" role="document">-->
+          <!--              <div class="modal-content">-->
+          <!--                <div class="modal-header no-bd">-->
+          <!--                  <h5 class="modal-title">-->
+          <!--														<span class="fw-mediumbold">-->
+          <!--														New</span>-->
+          <!--                    <span class="fw-light">-->
+          <!--															Row-->
+          <!--														</span>-->
+          <!--                  </h5>-->
+          <!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+          <!--                    <span aria-hidden="true">×</span>-->
+          <!--                  </button>-->
+          <!--                </div>-->
+          <!--                <div class="modal-body">-->
+          <!--                  <p class="small">Create a new row using this form, make sure you fill them all</p>-->
+          <!--                  <form>-->
+          <!--                    <div class="row">-->
+          <!--                      <div class="col-sm-12">-->
+          <!--                        <div class="form-group form-group-default">-->
+          <!--                          <label>Name</label>-->
+          <!--                          <input id="addName" type="text" class="form-control" placeholder="fill name">-->
+          <!--                        </div>-->
+          <!--                      </div>-->
+          <!--                      <div class="col-md-6 pr-0">-->
+          <!--                        <div class="form-group form-group-default">-->
+          <!--                          <label>Position</label>-->
+          <!--                          <input id="addPosition" type="text" class="form-control" placeholder="fill position">-->
+          <!--                        </div>-->
+          <!--                      </div>-->
+          <!--                      <div class="col-md-6">-->
+          <!--                        <div class="form-group form-group-default">-->
+          <!--                          <label>Office</label>-->
+          <!--                          <input id="addOffice" type="text" class="form-control" placeholder="fill office">-->
+          <!--                        </div>-->
+          <!--                      </div>-->
+          <!--                    </div>-->
+          <!--                  </form>-->
+          <!--                </div>-->
+          <!--                <div class="modal-footer no-bd">-->
+          <!--                  <button type="button" id="addRowButton" class="btn btn-primary">Add</button>-->
+          <!--                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+
+          <div class="table-responsive">
+            <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="dataTables_length" id="add-row_length"><label>Показать по <select name="add-row_length"
+                                                                                                aria-controls="add-row"
+                                                                                                class="form-control form-control-sm">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select> элементов</label></div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div id="add-row_filter" class="dataTables_filter"><label>Поиск:<input type="search"
+                                                                                         class="form-control form-control-sm"
+                                                                                         placeholder=""
+                                                                                         aria-controls="add-row"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table id="add-row" class="display table table-striped table-hover dataTable" role="grid"
+                         aria-describedby="add-row_info">
+                    <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="ID: activate to sort column descending"
+                          style="width: 50.766px;">ID
+                      </th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                          style="width: 387.766px;">Код
+                      </th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                          style="width: 387.766px;">Название RU
+                      </th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                          style="width: 387.766px;">Название KZ
+                      </th>
+                      <th style="width: 127.891px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1"
+                          colspan="1" aria-label="Action: activate to sort column ascending">Действие
+                      </th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                      <th rowspan="1" colspan="1">ID</th>
+                      <th rowspan="1" colspan="1">Код</th>
+                      <th rowspan="1" colspan="1">Название RU</th>
+                      <th rowspan="1" colspan="1">Название KZ</th>
+                      <th rowspan="1" colspan="1">Действие</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">1</td>
+                      <td>TEST_1</td>
+                      <td>Кат-ия компании 1</td>
+                      <td>Компании кат-сы 1</td>
+                      <td>
+                        <div class="form-button-action">
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
+                                  data-original-title="Edit Task">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                  data-original-title="Remove">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">2</td>
+                      <td>TEST_2</td>
+                      <td>Кат-ия компании 2</td>
+                      <td>Компании кат-сы 2</td>
+                      <td>
+                        <div class="form-button-action">
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
+                                  data-original-title="Edit Task">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                  data-original-title="Remove">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">3</td>
+                      <td>TEST_3</td>
+                      <td>Кат-ия компании 3</td>
+                      <td>Компании кат-сы 3</td>
+                      <td>
+                        <div class="form-button-action">
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
+                                  data-original-title="Edit Task">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                  data-original-title="Remove">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">4</td>
+                      <td>TEST_4</td>
+                      <td>Кат-ия компании 4</td>
+                      <td>Компании кат-сы 4</td>
+                      <td>
+                        <div class="form-button-action">
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
+                                  data-original-title="Edit Task">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                  data-original-title="Remove">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">5</td>
+                      <td>TEST_5</td>
+                      <td>Кат-ия компании 5</td>
+                      <td>Компании кат-сы 5</td>
+                      <td>
+                        <div class="form-button-action">
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
+                                  data-original-title="Edit Task">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                  data-original-title="Remove">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-5">
+                  <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">Показано 1-5 из 100
+                    элементов
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
+                    <ul class="pagination">
+                      <li class="paginate_button page-item previous disabled" id="add-row_previous"><a href="#"
+                                                                                                       aria-controls="add-row"
+                                                                                                       data-dt-idx="0"
+                                                                                                       tabindex="0"
+                                                                                                       class="page-link">Пред.</a>
+                      </li>
+                      <li class="paginate_button page-item active"><a href="#" aria-controls="add-row" data-dt-idx="1"
+                                                                      tabindex="0" class="page-link">1</a></li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="add-row" data-dt-idx="2"
+                                                                tabindex="0" class="page-link">2</a></li>
+                      <li class="paginate_button page-item next" id="add-row_next"><a href="#" aria-controls="add-row"
+                                                                                      data-dt-idx="3" tabindex="0"
+                                                                                      class="page-link">След.</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Редактировать категрию</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="code">Кодовое название</label>
+              <input type="text" class="form-control" id="code" placeholder="Кодовое название">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="nameRu">Название RU</label>
+              <input type="text" class="form-control" id="nameRu" placeholder="Название">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="nameKz">Название KZ</label>
+              <input type="text" class="form-control" id="nameKz" placeholder="Название">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label for="descriptionRu">Описание RU</label>
+              <textarea class="form-control" id="descriptionRu" rows="5">
+										</textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label for="descriptionKz">Описание KZ</label>
+              <textarea class="form-control" id="descriptionKz" rows="5">
+										</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card-action">
+          <button class="btn btn-success">Сохранить</button>
+          <button class="btn btn-danger">Отменить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

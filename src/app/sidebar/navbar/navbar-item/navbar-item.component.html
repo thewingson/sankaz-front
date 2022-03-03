@@ -1,0 +1,23 @@
+<a *ngIf="navItem.childItems != null; else noChilds" href="#{{navItem.routeLink}}" data-toggle="collapse" class="collapsed" aria-expanded="false">
+  <i class="fas {{navItem.iconName}}"></i>
+  <p>{{navItem.nameRu}}</p>
+  <span class="caret" *ngIf="navItem.childItems != null"></span>
+</a>
+
+<ng-template #noChilds>
+  <a [routerLink]="navItem.routeLink"  href="#">
+    <i class="fas {{navItem.iconName}}"></i>
+    <p>{{navItem.nameRu}}</p>
+    <span class="caret" *ngIf="navItem.childItems != null"></span>
+  </a>
+</ng-template>
+
+<div class="collapse" id="{{navItem.routeLink}}" style="" *ngIf="navItem.childItems != null">
+  <ul class="nav nav-collapse">
+    <li *ngFor="let childItem of navItem.childItems">
+      <a [routerLink]="childItem.routeLink">
+        <span class="sub-item">{{childItem.nameRu}}</span>
+      </a>
+    </li>
+  </ul>
+</div>

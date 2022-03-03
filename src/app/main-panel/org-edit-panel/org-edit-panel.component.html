@@ -1,0 +1,144 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">{{title}}</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="#">
+          <i class="flaticon-home"></i>
+        </a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+      <li class="separator">
+        <i class="flaticon-right-arrow"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">{{title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-8 center">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Редактирование организации</div>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="orgName">Наименование юр. лица</label>
+            <input type="text" class="form-control" id="orgName" placeholder="Введите наименование юр. лица">
+          </div>
+          <div class="form-group">
+            <label for="compName">Название компании</label>
+            <input type="text" class="form-control" id="compName" placeholder="Введите название компании">
+          </div>
+          <div class="row form-group">
+            <div class="col-12">
+              <label for="user">Пользователь</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" id="user"  placeholder="Выберите пользователя"><!--aria-label="Recipient's username" aria-describedby="basic-addon2"-->
+                <div class="input-group-append">
+                  <button class="btn btn-secondary">
+											<span class="btn-label">
+												<i class="fa fa-plus"></i>
+											</span>
+                    Выбрать
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-6">
+              <label for="iin">ИИН</label>
+              <input type="text" class="form-control" id="iin" placeholder="Введите ИИН">
+            </div>
+            <div class="col-6">
+              <label for="iban">IBAN</label>
+              <input type="text" class="form-control" id="iban" placeholder="Введите IBAN">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-6">
+              <label for="email">Email</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" id="email"  placeholder="Введите email"><!--aria-label="Recipient's username" aria-describedby="basic-addon2"-->
+                <div class="input-group-append">
+                  <span class="input-group-text">@example.com</span><!--id="basic-addon2"-->
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="telNumber">Тел. номер</label>
+              <input type="text" class="form-control" id="telNumber" placeholder="Введите тел. номер">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-6">
+              <label for="address">Адрес</label>
+              <input type="text" class="form-control" id="address" placeholder="Введите адрес">
+            </div>
+            <div class="col-6">
+              <label for="defaultSelect">Категория</label>
+              <select class="form-control form-control" id="defaultSelect">
+                <option>Тест 1</option>
+                <option>Тест 2</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-12">
+              <label for="description">Описание</label>
+              <textarea class="form-control" id="description" rows="5">
+										</textarea>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-6">
+              <label for="inst">Ссылка на Instagram</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3-inst">https://www.instagram.com/</span>
+                </div>
+                <input type="text" class="form-control" id="inst" aria-describedby="basic-addon3-inst">
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="site">Ссылка на сайт</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3-site">https://example.com</span>
+                </div>
+                <input type="text" class="form-control" id="site" aria-describedby="basic-addon3-site">
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-2">
+              <div class="avatar avatar-xxl">
+                <img src="../../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="avatar avatar-xxl">
+                <button type="button" class="btn btn-icon btn-round btn-success btn-add-image">
+                  <i class="fa fa-plus icon-add-image"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-action">
+          <button class="btn btn-success">Сохранить</button>
+          <button class="btn btn-danger">Отменить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
