@@ -38,6 +38,7 @@ const appRoutes : Routes = [
     path:'main', component:MainComponent,
     children:[
       {path:'san', component:SanPanelComponent},
+      {path:'sanEdit',component:SanEditPanelComponent},
       {path:'org', component:OrgPanelComponent},
       {path:'user', component:UserPanelComponent},
       {path:'dict',children:[

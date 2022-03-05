@@ -223,7 +223,7 @@
           </div>
           <div class="card-action">
             <button type="submit" class="btn btn-success">Сохранить</button>
-            <button (click)="clearRow()" class="btn btn-danger">Отменить</button>
+            <button (click)="clearRow();$event.preventDefault()" class="btn btn-danger">Отменить</button>
           </div>
       </form>
       </div>

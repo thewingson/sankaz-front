@@ -76,7 +76,7 @@ export class CityEditPanelComponent implements OnInit {
    this.service.deleteOneById(row).subscribe(()=>this.getAll())
    }
    
-   public clearRow(){
+   public clearRow(){ 
     this.form.patchValue({
       id:'',
       code:'',
