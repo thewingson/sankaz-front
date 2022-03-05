@@ -26,6 +26,10 @@ import {MainComponent} from './main/main.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ServiceCatEditPanelComponent} from "./main-panel/dictionary/service-cat-edit-panel/service-cat-edit-panel.component";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MatTableModule} from "@angular/material/table";
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 const appRoutes : Routes = [
   { path:'', redirectTo:'/main', pathMatch:'full' },
@@ -78,7 +82,11 @@ const appRoutes : Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-    ,RouterModule.forRoot(appRoutes)
+    ,RouterModule.forRoot(appRoutes),
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   exports: [RouterModule,FormsModule,ReactiveFormsModule],
   providers: [],
