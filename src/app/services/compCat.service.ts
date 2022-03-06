@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { DictEnity } from '../model/DictEntity';
+import { DictEntity } from '../model/DictEntity';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +19,14 @@ export class CompCatService {
    return this.http.get(this.url,{headers:this.headers}) 
   }
 
-  public setById(data:DictEnity){
+  public setById(data:DictEntity){
     return this.http.post(this.url+`/${data.id}`,data,{headers:this.headers})
   }
 
-  public addOne(data:DictEnity){
+  public addOne(data:DictEntity){
     return this.http.post(this.url,data,{headers:this.headers}) 
   }
-  public deleteOneById(data:DictEnity){
-    return this.http.delete(this.url+`/${data.id}`,{headers:this.headers}) 
+  public deleteOneById(id:string){
+    return this.http.delete(this.url+`/${id}`,{headers:this.headers}) 
   }
 }

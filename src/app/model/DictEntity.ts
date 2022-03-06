@@ -1,4 +1,4 @@
-export interface DictEnity {
+export interface DictEntity {
     name: string;
     code: string;
     description: string;

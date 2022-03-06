@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { CitiesService } from 'src/app/services/cities.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { DictEnity } from '../../../model/DictEntity';
+import { DictEntity } from '../../../model/DictEntity';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -13,11 +13,11 @@ import {MatDialog} from '@angular/material/dialog';
 })
 
 export class CityEditPanelComponent implements OnInit {
-  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEnity[];
+  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEntity[];
 
   displayedColumns = ['code','name','nameKz','description','descriptionKz','action'];
 
-  dataSource = new MatTableDataSource<DictEnity>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<DictEntity>(this.ELEMENT_DATA);
 
   title = 'Город';
 
@@ -45,13 +45,13 @@ export class CityEditPanelComponent implements OnInit {
   }
 
   public getAll(){
-    let resp = this.service.getAllCities()
+    let resp = this.service.getAll()
     resp.subscribe(res=>{
-      this.dataSource.data = res['data'] as DictEnity[]
+      this.dataSource.data = res['data'] as DictEntity[]
       console.log(this.dataSource.data);
     })
   }
-  public editRow(row:DictEnity){
+  public editRow(row:DictEntity){
     this.form.patchValue({
       id:row.id,
       code:row.code,
@@ -65,15 +65,15 @@ export class CityEditPanelComponent implements OnInit {
   }
 
   public saveForm(){
-    const data:DictEnity = this.form.getRawValue();
+    const data:DictEntity = this.form.getRawValue();
     if(data.id) this.service.setCityById(this.form.getRawValue()).subscribe(()=>this.getAll());
 
     else this.service.addOne(data).subscribe(()=>this.getAll());
    }
 
-  public deleteRow(row:DictEnity){
+  public deleteRow(row:DictEntity){
 
-   this.service.deleteOneById(row).subscribe(()=>this.getAll())
+   this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
    }
    
    public clearRow(){ 

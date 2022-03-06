@@ -4,7 +4,7 @@ import { GenderService } from 'src/app/services/gender.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DictEnity } from 'src/app/model/DictEntity';
+import { DictEntity } from 'src/app/model/DictEntity';
 
 @Component({
   selector: 'app-gender-edit-panel',
@@ -13,11 +13,11 @@ import { DictEnity } from 'src/app/model/DictEntity';
 })
 export class GenderEditPanelComponent implements OnInit {
   title = 'Пол';
-  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEnity[];
+  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEntity[];
 
   displayedColumns = ['code','name','nameKz','description','descriptionKz','action'];
 
-  dataSource = new MatTableDataSource<DictEnity>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<DictEntity>(this.ELEMENT_DATA);
 
   form:FormGroup;
 
@@ -45,11 +45,11 @@ export class GenderEditPanelComponent implements OnInit {
   public getAll(){
     let resp = this.service.getAll()
     resp.subscribe(res=>{
-      this.dataSource.data = res['data'] as DictEnity[]
+      this.dataSource.data = res['data'] as DictEntity[]
       console.log(this.dataSource.data);
     })
   }
-  public editRow(row:DictEnity){
+  public editRow(row:DictEntity){
     this.form.patchValue({
       id:row.id,
       code:row.code,
@@ -64,17 +64,17 @@ export class GenderEditPanelComponent implements OnInit {
 
 
   public saveForm(){
-    const data:DictEnity = this.form.getRawValue();
+    const data:DictEntity = this.form.getRawValue();
     if(data.id) this.service.setById(this.form.getRawValue()).subscribe(()=>this.getAll());
 
     else this.service.addOne(data).subscribe(()=>this.getAll());
    }
 
-  public deleteRow(row:DictEnity){
-   this.service.deleteOneById(row).subscribe(()=>this.getAll())
+  public deleteRow(row:DictEntity){
+   this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
    }
    public clearRow(){
-    const data:DictEnity = this.form.getRawValue();
+    const data:DictEntity = this.form.getRawValue();
     this.form.patchValue({
       id:'',
       code:'',

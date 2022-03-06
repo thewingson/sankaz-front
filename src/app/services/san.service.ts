@@ -27,6 +27,6 @@ export class SanTypeService {
     return this.http.post(this.url,data,{headers:this.headers}) 
   }
   public deleteOneById(id:string){
-    return this.http.delete(this.url+`/${id}`,{headers:this.headers}) 
+    return this.http.delete(this.url+`/${data.id}`,{headers:this.headers}) 
   }
 }

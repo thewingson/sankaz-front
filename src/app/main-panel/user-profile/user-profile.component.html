@@ -10,18 +10,19 @@
             </div>
           </div>
         </div>
+        <form [formGroup]="form" (submit)="saveForm()">
         <div class="card-body">
           <div class="row mt-3">
             <div class="col-md-6">
               <div class="form-group form-group-default">
                 <label>Логин</label>
-                <input type="text" class="form-control" name="login" placeholder="Логин" value="Hizrian">
+                <input formControlName="username" type="text" class="form-control" name="login" placeholder="Логин" value="Hizrian">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group form-group-default">
                 <label>Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Email" value="hello@example.com">
+                <input formControlName="email" type="email" class="form-control" name="email" placeholder="Email" value="hello@example.com">
               </div>
             </div>
           </div>
@@ -29,36 +30,47 @@
             <div class="col-md-6">
               <div class="form-group form-group-default">
                 <label>Имя</label>
-                <input type="text" class="form-control" name="firstName" placeholder="Имя" value="Hizrian">
+                <input formControlName="firstName" type="text" class="form-control" name="firstName" placeholder="Имя" value="Hizrian">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group form-group-default">
                 <label>Фамилия</label>
-                <input type="text" class="form-control" name="lastName" placeholder="Фамилия" value="Hizrian">
+                <input formControlName="lastName" type="text" class="form-control" name="lastName" placeholder="Фамилия" value="Hizrian">
               </div>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-4">
               <div class="form-group form-group-default">
-                <label>Дата рождения</label>
-                <input type="text" class="form-control" id="datepicker" name="datepicker" value="03/21/1998" placeholder="Дата рождения">
-              </div>
+                <label>Статус подтвеждения</label>
+                <mat-form-field style="width: 100%;">
+                  <mat-select formControlName="confirmationStatus">
+                    <mat-option *ngFor="let status of statuses" [value]="status.id">
+                      {{status.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                </div>
             </div>
             <div class="col-md-4">
               <div class="form-group form-group-default">
                 <label>Пол</label>
-                <select class="form-control" id="gender">
-                  <option>Мужчина</option>
-                  <option>Женщина</option>
-                </select>
+                <mat-form-field style="width: 100%;">
+                  <mat-select formControlName="genderId">
+                    <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                      {{gender.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group form-group-default">
                 <label>Тел. номер</label>
-                <input type="text" class="form-control" value="+62008765678" name="phone" placeholder="Тел. номер">
+                <mat-form-field  style="width: 100%;" class="example-full-width">
+                  <input matInput formControlName="telNumber">
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -66,33 +78,29 @@
             <div class="col-md-4">
               <div class="form-group form-group-default">
                 <label>Тип</label>
-                <select class="form-control" id="userType">
-                  <option>Пользователь</option>
-                  <option>Организация</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group form-group-default">
-                <label>Статус</label>
-                <select class="form-control" id="confStatus">
-                  <option>Новый</option>
-                  <option>На подтвеждении</option>
-                  <option>Подтвежден</option>
-                </select>
+                <mat-form-field style="width: 100%;">
+                  <mat-select formControlName="userType">
+                    <mat-option *ngFor="let userType of userTypes" [value]="userType.id">
+                      {{userType.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group form-group-default">
                 <label>Город</label>
-                <select class="form-control" id="city">
-                  <option>Сарайшық</option>
-                  <option>Орда-Базар</option>
-                </select>
+                <mat-form-field style="width: 100%;">
+                  <mat-select formControlName="cityId">
+                    <mat-option *ngFor="let city of cities" [value]="city.id">
+                      {{city.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </div>
-          <div class="row mt-3">
+          <!-- <div class="row mt-3">
             <div class="col-md-6">
               <div class="form-group form-group-default">
                 <label>Пароль</label>
@@ -105,15 +113,16 @@
                 <input type="password" class="form-control" name="confirmPassword" placeholder="Повторить пароль" value="Hizrian">
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="text-right mt-3 mb-3">
             <button class="btn btn-success">Сохранить</button>
-            <button class="btn btn-danger">Отменить</button>
+            <button (click)="cancel();$event.preventDefault()" class="btn btn-danger">Отменить</button>
           </div>
         </div>
         <div class="card-footer">
         </div>
+      </form>
       </div>
     </div>
   </div>

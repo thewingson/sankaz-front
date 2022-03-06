@@ -29,7 +29,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { MatSelectModule } from '@angular/material/select';
 
 const appRoutes : Routes = [
   { path:'', redirectTo:'/main', pathMatch:'full' },
@@ -38,9 +40,10 @@ const appRoutes : Routes = [
     path:'main', component:MainComponent,
     children:[
       {path:'san', component:SanPanelComponent},
-      {path:'sanEdit',component:SanEditPanelComponent},
+      {path:'san/edit/:id',component:SanEditPanelComponent},
       {path:'org', component:OrgPanelComponent},
       {path:'user', component:UserPanelComponent},
+      {path:'user/edit/:id', component:UserProfileComponent},
       {path:'dict',children:[
           {path:'city/edit', component:CityEditPanelComponent},
           {path:'comp-cat/edit', component:CompCatEditPanelComponent},
@@ -87,7 +90,9 @@ const appRoutes : Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatInputModule
   ],
   exports: [RouterModule,FormsModule,ReactiveFormsModule],
   providers: [],

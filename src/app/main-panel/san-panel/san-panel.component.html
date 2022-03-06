@@ -22,7 +22,7 @@
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">Весь список</h4>
-            <button class="btn btn-primary btn-round ml-auto">
+            <button (click)="editRow('new')" class="btn btn-primary btn-round ml-auto">
               <i class="fa fa-plus"></i>
               Создать
             </button>
@@ -58,138 +58,50 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <table id="add-row" class="display table table-striped table-hover dataTable" role="grid"
-                         aria-describedby="add-row_info">
-                    <thead>
-                    <tr role="row">
-                      <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
-                          aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                          style="width: 50px;">ID
-                      </th>
-                      <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
-                          aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                          style="width: 387.766px;">Название
-                      </th>
-                      <th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
-                          aria-label="Position: activate to sort column ascending" style="width: 582.953px;">
-                        Тип
-                      </th>
-                      <th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1"
-                          aria-label="Office: activate to sort column ascending" style="width: 324.391px;">Город
-                      </th>
-                      <th style="width: 127.891px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1"
-                          colspan="1" aria-label="Action: activate to sort column ascending">Действия
-                      </th>
-                    </tr>
-                    </thead>
-
-                    <tfoot>
-                    <tr>
-                      <th rowspan="1" colspan="1">ID</th>
-                      <th rowspan="1" colspan="1">Название</th>
-                      <th rowspan="1" colspan="1">Тип</th>
-                      <th rowspan="1" colspan="1">Город</th>
-                      <th rowspan="1" colspan="1">Действия</th>
-                    </tr>
-                    </tfoot>
-
-                    <tbody>
-                    <tr role="row" class="odd">
-                      <td class="sorting_1">Airi Satou</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>Tokyo</td>
-                      <td>
-                        <div class="form-button-action">
-                          <button type="button" data-toggle="tooltip" title=""
-                                  class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
-                                  data-original-title="Remove">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr role="row" class="even">
-                      <td class="sorting_1">Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>San Francisco</td>
-                      <td>
-                        <div class="form-button-action">
-                          <button type="button" data-toggle="tooltip" title=""
-                                  class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
-                                  data-original-title="Remove">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr role="row" class="odd">
-                      <td class="sorting_1">Brielle Williamson</td>
-                      <td>Integration Specialist</td>
-                      <td>New York</td>
-                      <td>New York</td>
-                      <td>
-                        <div class="form-button-action">
-                          <button type="button" data-toggle="tooltip" title=""
-                                  class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
-                                  data-original-title="Remove">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr role="row" class="even">
-                      <td class="sorting_1">Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                      <td>Edinburgh</td>
-                      <td>Edinburgh</td>
-                      <td>
-                        <div class="form-button-action">
-                          <button type="button" data-toggle="tooltip" title=""
-                                  class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
-                                  data-original-title="Remove">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr role="row" class="odd">
-                      <td class="sorting_1">Colleen Hurst</td>
-                      <td>Javascript Developer</td>
-                      <td>San Francisco</td>
-                      <td>San Francisco</td>
-                      <td>
-                        <div class="form-button-action">
-                          <button type="button" data-toggle="tooltip" title=""
-                                  class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
-                                  data-original-title="Remove">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
+     
+                <ng-container matColumnDef="code">
+                  <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Кодовое название</th>
+                  <td mat-cell *matCellDef="let row">{{row.code}}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="name">
+                  <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Название RU</th>
+                  <td mat-cell *matCellDef="let row">{{row.name}}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="nameKz">
+                  <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Название KZ</th>
+                  <td mat-cell *matCellDef="let row">{{row.name}}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="description">
+                  <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Описание RU</th>
+                  <td mat-cell *matCellDef="let row">{{row.description}}</td>
+                </ng-container> 
+            
+                <ng-container matColumnDef="descriptionKz">
+                  <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Описание KZ</th>
+                  <td mat-cell *matCellDef="let row">{{row.descriptionKz}}</td>
+                </ng-container> 
+            
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let row" class="action-link"> 
+                    <div class="form-button-action">
+                      <button (click)="editRow(row)" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
+                              data-original-title="Edit Task">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button mat-button (click)="deleteRow(row)" class="btn btn-link btn-danger"  data-original-title="Remove">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
               <div class="row">
                 <div class="col-sm-12 col-md-5">
                   <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">Показано 1-5 из
