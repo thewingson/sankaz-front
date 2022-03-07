@@ -25,6 +25,8 @@ export class UserPanelComponent implements OnInit {
 
   form:FormGroup;
 
+  total:number;
+
   constructor(
     private service:UserService,
     public dialog: MatDialog,
@@ -38,7 +40,7 @@ export class UserPanelComponent implements OnInit {
   public getAll(){
     let resp = this.service.getAll()
     resp.subscribe(res=>{
-      this.dataSource.data = res['data'] as User[]
+      this.dataSource.data = res['data']['content'] as User[]
       console.log(this.dataSource.data);
     })
   }
