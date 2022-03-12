@@ -9,7 +9,7 @@ import {MainPanelComponent} from './main-panel/main-panel.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RouterModule, Routes} from "@angular/router";
 import {SanPanelComponent} from './main-panel/san-panel/san-panel.component';
-import {OrgPanelComponent} from './main-panel/org-panel/org-panel.component';
+import {ApproveDialog, OrgPanelComponent} from './main-panel/org-panel/org-panel.component';
 import {UserPanelComponent} from './main-panel/user-panel/user-panel.component';
 import {NavbarComponent} from './sidebar/navbar/navbar.component';
 import {NavbarItemComponent} from './sidebar/navbar/navbar-item/navbar-item.component';
@@ -32,6 +32,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { MatSelectModule } from '@angular/material/select';
+import { UserForOrgComponent } from './main-panel/org-edit-panel/user-for-org/user-for-org.component';
+import * as Notiflix from 'notiflix';
 
 const appRoutes : Routes = [
   { path:'', redirectTo:'/main', pathMatch:'full' },
@@ -42,6 +44,7 @@ const appRoutes : Routes = [
       {path:'san', component:SanPanelComponent},
       {path:'san/edit/:id',component:SanEditPanelComponent},
       {path:'org', component:OrgPanelComponent},
+      {path:'org/edit/:id', component:OrgEditPanelComponent},
       {path:'user', component:UserPanelComponent},
       {path:'user/edit/:id', component:UserProfileComponent},
       {path:'dict',children:[
@@ -78,7 +81,9 @@ const appRoutes : Routes = [
     LoginComponent,
     MainComponent,
     NotFoundComponent,
-    ServiceCatEditPanelComponent
+    ServiceCatEditPanelComponent,
+    UserForOrgComponent,
+    ApproveDialog
   ],
   imports: [
     BrowserModule,
@@ -92,7 +97,7 @@ const appRoutes : Routes = [
     MatDialogModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
   ],
   exports: [RouterModule,FormsModule,ReactiveFormsModule],
   providers: [],

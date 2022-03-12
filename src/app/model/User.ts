@@ -1,4 +1,5 @@
 import { DictEntity } from "./DictEntity";
+import { Pic } from "./Pic";
 
 export interface User {
     id:string,
@@ -10,5 +11,6 @@ export interface User {
     gender:DictEntity,
     telNumber:string,
     firstName:string,
-    lastName:string
+    lastName:string,
+    pic:Pic
 }

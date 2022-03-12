@@ -37,6 +37,10 @@ export class UserProfileComponent implements OnInit {
 
   userTypes:Option[] = [];
 
+  imgPath:string = "../assets/img/profile.jpg"
+
+  image:File
+
   constructor(
     private http: HttpClient,
     private service:UserService,
@@ -60,7 +64,7 @@ export class UserProfileComponent implements OnInit {
       genderId:new FormControl(),
       telNumber:new FormControl(),
       firstName:new FormControl(),
-      lastName:new FormControl()
+      lastName:new FormControl(),
     })
   }
 
@@ -69,15 +73,19 @@ export class UserProfileComponent implements OnInit {
     this.getStatuses();
     this.getUserTypes();
     this.getCities();
-    let id = this.route.snapshot.paramMap.get('id')
+    let id = this.route.snapshot.paramMap.get('id');
+    if(id==='new'){
+      return
+    }
     let resp = this.service.getById(id)
-    resp.subscribe(res=>{
+    resp.subscribe(res=>{ 
       this.data = res['data'] as User
       Object.keys(this.form.controls).forEach(key => {
         this.form.controls[key].setValue(this.data[key])
       });
-      this.form.controls['gender'].setValue(this.data.gender.id)
-      this.form.controls['city'].setValue(this.data.city.id)
+      this.form.controls['genderId'].setValue(this.data.gender.id)
+      this.form.controls['cityId'].setValue(this.data.city.id)
+      this.imgPath = this.data.pic.url
     })
   }
 
@@ -114,13 +122,14 @@ export class UserProfileComponent implements OnInit {
   }
 
   public saveForm(){
-    const data:User = this.form.getRawValue();
-    console.log(data);
-    
+    const data:User = this.form.getRawValue();    
       if(data.id) {
-        this.service.setById(data).subscribe((res)=>console.log(res));
+       this.service.setById(data).subscribe((res)=>console.log(res));
+       this.service.uploadImage(data,this.image).subscribe((res)=>console.log(res))
       }
-      else this.service.addOne(data).subscribe((res)=>console.log(res));
+      else this.service.addOne(data).subscribe((res)=>{    
+        this.service.uploadImage(res['data'],this.image).subscribe((res)=>console.log(res))
+      });
    }
 
   public deleteRow(row:User){
@@ -128,6 +137,20 @@ export class UserProfileComponent implements OnInit {
    }
    public cancel(){
     this.router.navigate(['/main/user'])
+  }
+  public openFileDialog(){
+    document.getElementById('upload').click()
+  }
+
+  public onSelect(event:Event){
+    this.image = (event.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(this.image);
+    reader.onload=()=>{
+      this.imgPath = reader.result as string
+    }
+    console.log(this.image);
+    
   }
 
 }

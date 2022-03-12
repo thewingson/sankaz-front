@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <textarea style="resize: none;width: 100%; height: 100px;" *ngIf="data.status===2" [ngModel]="rejectionMessage" (ngModelChange)="rejectionMessage=$event"></textarea>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-light mr-3" mat-button [mat-dialog-close]="false">Нет</button>
+  <button (click)="onOk()"  class="btn btn-dark" cdkFocusInitial>Да</button>
+</mat-dialog-actions>

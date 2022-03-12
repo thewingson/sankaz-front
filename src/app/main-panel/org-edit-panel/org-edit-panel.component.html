@@ -23,6 +23,7 @@
   </div>
   <div class="row">
     <div class="col-md-8 center">
+      <form [formGroup]="form" (submit)="saveForm()">
       <div class="card">
         <div class="card-header">
           <div class="card-title">Редактирование организации</div>
@@ -30,24 +31,19 @@
         <div class="card-body">
           <div class="form-group">
             <label for="orgName">Наименование юр. лица</label>
-            <input type="text" class="form-control" id="orgName" placeholder="Введите наименование юр. лица">
+            <input formControlName="name" type="text" class="form-control" id="orgName" placeholder="Введите наименование юр. лица">
           </div>
           <div class="form-group">
             <label for="compName">Название компании</label>
-            <input type="text" class="form-control" id="compName" placeholder="Введите название компании">
+            <input type="text" formControlName="companyName" class="form-control" id="compName" placeholder="Введите название компании">
           </div>
           <div class="row form-group">
             <div class="col-12">
               <label for="user">Пользователь</label>
               <div class="input-group mb-3">
-                <input type="email" class="form-control" id="user"  placeholder="Выберите пользователя"><!--aria-label="Recipient's username" aria-describedby="basic-addon2"-->
+                <input type="text" formControlName="managerFullName"  class="form-control" id="user"  placeholder="Выберите пользователя">
                 <div class="input-group-append">
-                  <button class="btn btn-secondary">
-											<span class="btn-label">
-												<i class="fa fa-plus"></i>
-											</span>
-                    Выбрать
-                  </button>
+                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-example-modal-lg">Выбрать</button>
                 </div>
               </div>
             </div>
@@ -55,18 +51,18 @@
           <div class="row form-group">
             <div class="col-6">
               <label for="iin">ИИН</label>
-              <input type="text" class="form-control" id="iin" placeholder="Введите ИИН">
+              <input type="text" formControlName="iin" class="form-control" id="iin" placeholder="Введите ИИН">
             </div>
             <div class="col-6">
               <label for="iban">IBAN</label>
-              <input type="text" class="form-control" id="iban" placeholder="Введите IBAN">
+              <input type="text" formControlName="iban" class="form-control" id="iban" placeholder="Введите IBAN">
             </div>
           </div>
           <div class="row form-group">
             <div class="col-6">
               <label for="email">Email</label>
               <div class="input-group mb-3">
-                <input type="email" class="form-control" id="email"  placeholder="Введите email"><!--aria-label="Recipient's username" aria-describedby="basic-addon2"-->
+                <input type="email" class="form-control" id="email" formControlName="email"  placeholder="Введите email"><!--aria-label="Recipient's username" aria-describedby="basic-addon2"-->
                 <div class="input-group-append">
                   <span class="input-group-text">@example.com</span><!--id="basic-addon2"-->
                 </div>
@@ -74,26 +70,29 @@
             </div>
             <div class="col-6">
               <label for="telNumber">Тел. номер</label>
-              <input type="text" class="form-control" id="telNumber" placeholder="Введите тел. номер">
+              <input readonly type="text" formControlName="telNumber" class="form-control" id="telNumber" placeholder="Введите тел. номер">
             </div>
           </div>
           <div class="row form-group">
             <div class="col-6">
               <label for="address">Адрес</label>
-              <input type="text" class="form-control" id="address" placeholder="Введите адрес">
+              <input type="text" formControlName="address" class="form-control" id="address" placeholder="Введите адрес">
             </div>
             <div class="col-6">
               <label for="defaultSelect">Категория</label>
-              <select class="form-control form-control" id="defaultSelect">
-                <option>Тест 1</option>
-                <option>Тест 2</option>
-              </select>
+              <mat-form-field style="width: 100%;">
+                <mat-select formControlName="companyCategoryId">
+                  <mat-option *ngFor="let cat of categories" [value]="cat.id">
+                    {{cat.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
           <div class="row form-group">
             <div class="col-12">
               <label for="description">Описание</label>
-              <textarea class="form-control" id="description" rows="5">
+              <textarea formControlName="description" class="form-control" id="description" rows="5">
 										</textarea>
             </div>
           </div>
@@ -104,7 +103,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon3-inst">https://www.instagram.com/</span>
                 </div>
-                <input type="text" class="form-control" id="inst" aria-describedby="basic-addon3-inst">
+                <input type="text" formControlName="instagramLink" class="form-control" id="inst" aria-describedby="basic-addon3-inst">
               </div>
             </div>
             <div class="col-6">
@@ -113,20 +112,21 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon3-site">https://example.com</span>
                 </div>
-                <input type="text" class="form-control" id="site" aria-describedby="basic-addon3-site">
+                <input type="text" formControlName="siteLink" class="form-control" id="site" aria-describedby="basic-addon3-site">
               </div>
             </div>
           </div>
 
           <div class="row form-group">
-            <div class="col-2">
-              <div class="avatar avatar-xxl">
-                <img src="../../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+            <div *ngFor="let path of imgPaths" class="col-2">
+              <div  class="avatar avatar-xxl">
+                <img src={{path}} alt="..." class="avatar-img rounded-circle">
               </div>
             </div>
             <div class="col-2">
               <div class="avatar avatar-xxl">
-                <button type="button" class="btn btn-icon btn-round btn-success btn-add-image">
+                <input id="upload" type="file" style="display: none;" multiple (change)="onSelect($event)">
+                <button type="button" (click)="openFileDialog()" class="btn btn-icon btn-round btn-success btn-add-image">
                   <i class="fa fa-plus icon-add-image"></i>
                 </button>
               </div>
@@ -137,8 +137,16 @@
         <div class="card-action">
           <button class="btn btn-success">Сохранить</button>
           <button class="btn btn-danger">Отменить</button>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <user-for-org (setUser)="setUser($event)"></user-for-org>
+    </div>
+  </div>
+</div>
         </div>
       </div>
+    </form>
     </div>
   </div>
 </div>

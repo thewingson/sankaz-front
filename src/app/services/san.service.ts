@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { DictEntity } from '../model/DictEntity';
+import { Sanatory } from '../model/Sanatory';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SanTypeService {
+export class SanService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
   }).set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`
   )
-  url = environment.hostURL+'/admin/dict/san-types';
+  url = environment.hostURL+'/admin/sans';
   constructor(private http:HttpClient) { }
 
 
@@ -19,14 +19,18 @@ export class SanTypeService {
    return this.http.get(this.url,{headers:this.headers}) 
   }
 
-  public setById(data:DictEntity){
+  public getById(id:string){
+    return this.http.get(this.url+`/${id}`,{headers:this.headers})
+  }
+
+  public setById(data:Sanatory){
     return this.http.post(this.url+`/${data.id}`,data,{headers:this.headers})
   }
 
-  public addOne(data:DictEntity){
+  public addOne(data:Sanatory){
     return this.http.post(this.url,data,{headers:this.headers}) 
   }
   public deleteOneById(id:string){
-    return this.http.delete(this.url+`/${data.id}`,{headers:this.headers}) 
+    return this.http.delete(this.url+`/${id}`,{headers:this.headers}) 
   }
 }

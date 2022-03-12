@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { UserService } from 'src/app/services/user.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,17 +8,17 @@ import { User } from 'src/app/model/User';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-panel',
-  templateUrl: './user-panel.component.html',
-  styleUrls: ['./user-panel.component.css', "../main-panel.component.css"]
+  selector: 'user-for-org',
+  templateUrl: './user-for-org.html',
+  styleUrls: ['./user-for-org.component.css',"../../main-panel.component.css"]
 })
-export class UserPanelComponent implements OnInit {
+export class UserForOrgComponent implements OnInit {
 
   title = 'Пользователи';
 
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  User[];
 
-  displayedColumns = ['username','fullName','userType','confirmationStatus','action'];
+  displayedColumns = ['username','fullName','email'];
 
   dataSource = new MatTableDataSource<User>(this.ELEMENT_DATA);
 
@@ -34,7 +34,13 @@ export class UserPanelComponent implements OnInit {
 
   pageCount:number;
 
-  pages:number[]
+  pages:number[];
+
+  clickedRow:string;
+
+  currentUser:User;
+  
+  @Output() setUser:EventEmitter<User> = new EventEmitter()
 
   constructor(
     private service:UserService,
@@ -43,13 +49,13 @@ export class UserPanelComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getAll() 
+    this.getAll()
   }
 
   public getAll(){
-    let resp = this.service.getAll(this.currentPage-1,this.size)
+    let resp = this.service.getAllForOrg(this.currentPage-1,this.size)
     resp.subscribe(res=>{
-      this.originalSource.data = res['data']['content'] as User[]
+      this.originalSource.data = res['data'] as User[]
       this.dataSource.data = this.originalSource.data.filter((_,index)=> index<=this.size)
       this.total = res['data']['total']
       this.calcPageCount();
@@ -95,5 +101,12 @@ export class UserPanelComponent implements OnInit {
     if(this.size>this.total){
       this.size = this.total
     }     
+  }
+  public rowClick(row:User){
+   this.clickedRow = row.id
+   this.currentUser = row
+  }
+  public onOk(){
+    this.setUser.emit(this.currentUser)
   }
 }

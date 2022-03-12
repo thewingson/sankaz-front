@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { ServCatService } from 'src/app/services/servCat.service';
+import { SanService } from 'src/app/services/san.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DictEntity } from 'src/app/model/DictEntity';
+import { Sanatory } from 'src/app/model/Sanatory';
 import {Router} from '@angular/router'
 
 @Component({
@@ -15,68 +15,84 @@ import {Router} from '@angular/router'
 export class SanPanelComponent implements OnInit {
 
   title = 'Санатории';
-  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEntity[];
+  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  Sanatory[];
 
-  displayedColumns = ['code','name','nameKz','description','descriptionKz','action'];
+  displayedColumns = ['name','nameKz','description','descriptionKz','action'];
 
-  dataSource = new MatTableDataSource<DictEntity>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Sanatory>(this.ELEMENT_DATA);
 
   form:FormGroup;
 
+  originalSource = new MatTableDataSource<Sanatory>(this.ELEMENT_DATA);
+
+  size:number=10
+
+  total:number;
+
+  currentPage:number = 1;
+
+  pageCount:number;
+
+  pages:number[]
+
   constructor(
-    private http: HttpClient,
-    private service:ServCatService,
-    private formBuilder:FormBuilder,
+    private service:SanService,
     public dialog: MatDialog,
-    private router:Router
+    private router: Router
     ) { }
 
   ngOnInit(): void {
-    this.getAll();
-    this.form = this.formBuilder.group({
-      id:'',
-      code:'',
-      currentLocaleDescription:'',
-      currentLocaleName:'',
-      description:'',
-      descriptionKz:'',
-      name:'',
-      nameKz:''
-    })
+    this.getAll() 
   }
 
   public getAll(){
     let resp = this.service.getAll()
     resp.subscribe(res=>{
-      this.dataSource.data = res['data'] as DictEntity[]
-      console.log(this.dataSource.data);
+      this.originalSource.data = res['data'] as Sanatory[]
+      this.dataSource.data = this.originalSource.data.filter((_,index)=> index<this.size)
+      this.total = res['data']['total']
+      this.calcPageCount();
     })
   }
   public editRow(id:string){
-    this.router.navigate(['/main/sanEdit', id])
+    this.router.navigate(['/main/san/edit', id])
   }
-
-  public saveForm(){
-    const data:DictEntity = this.form.getRawValue();
-    if(data.id) this.service.setById(this.form.getRawValue()).subscribe(()=>this.getAll());
-
-    else this.service.addOne(data).subscribe(()=>this.getAll());
-   }
-
-  public deleteRow(row:DictEntity){
+  public deleteRow(row:Sanatory){
    this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
    }
-   public clearRow(){
-    this.form.patchValue({
-      id:'',
-      code:'',
-      currentLocaleDescription:'',
-      currentLocaleName:'',
-      description:'',
-      descriptionKz:'',
-      name:'',
-      nameKz:''
-    })
+
+   public filterSource(value:Event){
+     this.size = Number((value.target as HTMLSelectElement).value);
+     this.dataSource.data = this.originalSource.data.filter((_,index) => index<this.size);
+     this.calcPageCount()
+   }
+
+   public changeCurrentPage(value:number){
+      this.currentPage = value
+    console.log(this.currentPage);
+  }
+
+  incrementPage(){
+    if(this.currentPage< this.pageCount - 1)
+    this.currentPage = this.currentPage + 1
+    else this.currentPage = 1;
+  }
+
+  decrementPage(){
+    if(this.currentPage>1)
+    this.currentPage = this.currentPage - 1
+    else this.currentPage = this.pageCount;
+  }
+
+  public calcPageCount(){
+    this.pageCount = Math.ceil(this.total/this.size)
+    this.pages = []
+    for(let i =0;i<this.pageCount;i++){
+     this.pages.push(i+1);
+    }
+    if(this.size>this.total){
+      this.size = this.total
+    }     
   }
 
 }

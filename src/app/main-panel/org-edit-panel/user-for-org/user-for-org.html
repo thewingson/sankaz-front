@@ -19,11 +19,7 @@
       <div class="card">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h4 class="card-title">Весь список</h4>
-            <button (click)="editRow('new')" class="btn btn-primary btn-round ml-auto">
-              <i class="fa fa-plus"></i>
-              Создать
-            </button>
+            <h4 class="card-title">Пользователи</h4>
           </div>
         </div>
         <div class="card-body">
@@ -42,13 +38,7 @@
                     <option value="100">100</option>
                   </select> записей</label></div>
                 </div>
-                <!-- <div class="col-sm-12 col-md-6">
-                  <div id="basic-datatables_filter" class="dataTables_filter"><label>Search:<input type="search"
-                                                                                                   class="form-control form-control-sm"
-                                                                                                   placeholder=""
-                                                                                                   aria-controls="basic-datatables"></label>
-                  </div>
-                </div> -->
+          
               </div>
               <div class="row">
                 <div class="col-sm-12">
@@ -64,32 +54,16 @@
                       <td mat-cell *matCellDef="let row">{{row.firstName+ " " + row.lastName}}</td>
                     </ng-container>
                 
-                    <ng-container matColumnDef="userType">
-                      <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Тип пользователя</th>
-                      <td mat-cell *matCellDef="let row">{{row.userType}}</td>
+                    <ng-container matColumnDef="email">
+                      <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                      <td mat-cell *matCellDef="let row">{{row.email}}</td>
                     </ng-container>
                 
-                    <ng-container matColumnDef="confirmationStatus">
-                      <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Статус подтверждения</th>
-                      <td mat-cell *matCellDef="let row">{{row.confirmationStatus}}</td>
-                    </ng-container> 
-                
-                    <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef></th>
-                      <td mat-cell *matCellDef="let row" class="action-link"> 
-                        <div class="form-button-action">
-                          <button (click)="editRow(row.id)" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button mat-button (click)="deleteRow(row)" class="btn btn-link btn-danger"  data-original-title="Remove">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </ng-container>
                     <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr  mat-row
+                    (click)="rowClick(row)"
+                    [class.demo-row-is-clicked]="clickedRow === row.id"
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
                 </div>
               </div>
@@ -117,6 +91,9 @@
                     </ul>
                   </div>
                 </div>
+              </div>
+              <div class="row-ok">
+                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="onOk()">ОК</button>
               </div>
             </div>
           </div>
