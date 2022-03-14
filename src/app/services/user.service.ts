@@ -9,7 +9,7 @@ import { User } from '../model/User';
 export class UserService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`
+  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
   )
   url = environment.hostURL+'/admin/users';
   constructor(private http:HttpClient) { }
@@ -27,7 +27,7 @@ export class UserService {
   public getAllForOrg(page?,size?,fullName?,telNumber?){
     const url = this.url+'/for-org'
     const headers:HttpHeaders = new HttpHeaders({
-    }).set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`
+    }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
     )
       let formData = new FormData();
        formData.append("page",page?page:0)
@@ -57,7 +57,7 @@ export class UserService {
 
   public uploadImage(data:User,image:File){
     const headers:HttpHeaders = new HttpHeaders({
-    }).set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`
+    }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
     )
     const formData = new FormData();
     console.log(image)

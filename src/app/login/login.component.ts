@@ -5,6 +5,8 @@ import {environment} from '../../environments/environment'
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import { AuthRes } from '../model/AuthRes';
+import { AuthService } from '../services/auth.service';
+import { TokenStorageService } from '../services/toket-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +18,9 @@ export class LoginComponent implements OnInit {
   constructor(@Inject(DOCUMENT)
               private document: Document,
               private formBuilder:FormBuilder,
-              private http: HttpClient,
-              private router:Router
+              private router:Router,
+              private service:AuthService,
+              private storage:TokenStorageService
   ) {
   }
 
@@ -29,14 +32,24 @@ export class LoginComponent implements OnInit {
     })
   }
   submit():void{
-     this.http.post(environment.hostURL+"/auth/sign-in", this.form.getRawValue(),
-     {withCredentials:true})
-       .subscribe((data:AuthRes)=>{
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken',data.refreshToken);
-       this.router.navigate(['/'])
-       }
-    );
+    this.service.attemptAuth(this.form.getRawValue()).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.storage.saveToken(res.accessToken);
+        this.storage.saveRefreshToken(res.refreshToken)
+        this.storage.saveUserId(res.userId)
+        this.router.navigate(['/'])
+      }
+    }
+    )
+    //  this.http.post(environment.hostURL+"/auth/sign-in", this.form.getRawValue(),
+    //  {withCredentials:true})
+    //    .subscribe((data:AuthRes)=>{
+    //     localStorage.setItem('accessToken', data.accessToken);
+    //     localStorage.setItem('refreshToken',data.refreshToken);
+    //    this.router.navigate(['/'])
+    //    }
+    // );
     
   }
 

@@ -9,7 +9,7 @@ import { DictEntity } from '../model/DictEntity';
 export class CitiesService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`
+  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
   )
   url = environment.hostURL+'/admin/dict/cities';
   constructor(private http:HttpClient) { }

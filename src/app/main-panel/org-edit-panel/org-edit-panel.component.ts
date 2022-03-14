@@ -49,7 +49,7 @@ export class OrgEditPanelComponent implements OnInit {
     private formBuilder:FormBuilder,
     public dialog: MatDialog,
     private route:ActivatedRoute,
-    private router:Router,
+    public router:Router,
     private categoryService:CompCatService
     ) { }
 

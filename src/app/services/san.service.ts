@@ -9,7 +9,7 @@ import { Sanatory } from '../model/Sanatory';
 export class SanService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`
+  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
   )
   url = environment.hostURL+'/admin/sans';
   constructor(private http:HttpClient) { }
