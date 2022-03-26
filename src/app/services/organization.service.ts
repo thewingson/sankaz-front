@@ -20,8 +20,7 @@ export interface OrgFormData{
 export class OrgService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
-  )
+  })
   url = environment.hostURL+'/admin/orgs';
   constructor(private http:HttpClient) { }
 
@@ -53,8 +52,7 @@ export class OrgService {
 
   public addPics(data:Organization,images:File[]){
     const headers:HttpHeaders = new HttpHeaders({
-    }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
-    )
+    })
     const formData = new FormData();
     images.forEach((file,i)=>{
       formData.append(`pics`,file,file.name)

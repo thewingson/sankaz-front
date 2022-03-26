@@ -8,6 +8,7 @@ import { GenderService } from 'src/app/services/gender.service';
 import { CitiesService } from 'src/app/services/cities.service';
 import { DictEntity } from 'src/app/model/DictEntity';
 import { ConfirmationStatusEnum, userTypeEnum } from 'src/app/enums';
+import { SanTypeService } from 'src/app/services/sanType.service';
 
 type Option = {
   id:string,
@@ -34,14 +35,16 @@ export class SanEditPanelComponent implements OnInit {
 
   userTypes:Option[] = [];
 
+  sanTypes:DictEntity[] = [];
+
   constructor(
     private service:SanService,
     private formBuilder:FormBuilder,
     public dialog: MatDialog,
     private route:ActivatedRoute,
     private router:Router,
-    private genderService:GenderService,
-    private cityService:CitiesService
+    private cityService:CitiesService,
+    private sanTypesService:SanTypeService
     ) { }
 
   ngOnInit(): void {
@@ -64,9 +67,8 @@ export class SanEditPanelComponent implements OnInit {
   }
 
   public getData(){
-    this.getGenders();
     this.getStatuses();
-    this.getUserTypes();
+    this.getSanTypes();
     this.getCities();
     let id = this.route.snapshot.paramMap.get('id');
     if(id==='new'){
@@ -77,16 +79,11 @@ export class SanEditPanelComponent implements OnInit {
       this.data = res['data'] as Sanatory
       Object.keys(this.form.controls).forEach(key => {
         this.form.controls[key].setValue(this.data[key])
+        console.log(this.form.controls['telNumbers'].get);
       })
     })
   }
 
-  public getGenders(){
-    let resp = this.genderService.getAll()
-    resp.subscribe(res=>{
-      this.genders = res['data'] as DictEntity[]
-    })
-  }
 
   public getCities(){
     let resp = this.cityService.getAll()
@@ -131,5 +128,15 @@ export class SanEditPanelComponent implements OnInit {
   public openFileDialog(){
     document.getElementById('upload').click()
   }
+  public getCityNameById(id:number){
+      return this.cities.find(c=>c.id === id).name
+  }
+  public getSanTypes(){
+    this.sanTypesService.getAll().subscribe({
+      next: (res) => this.sanTypes = res['data'] 
+    })
+  }  public getSanTypeById(id:number){
+    return this.sanTypes.find(c=>c.id === id).name
+}
 
 }

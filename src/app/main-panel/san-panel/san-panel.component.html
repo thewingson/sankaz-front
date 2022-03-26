@@ -33,96 +33,114 @@
           <div class="table-responsive">
             <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
               <div class="row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-2">
                   <div class="dataTables_length" id="basic-datatables_length">
-                  <label>Показывать 
-                    <select (change)="filterSource($event)"
-                   name="basic-datatables_length" aria-controls="basic-datatables"
-                    class="form-control form-control-sm">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select> записей</label></div>
-                </div>
-               
-                <div class="col-sm-12 col-md-6">
-                  <!-- <div id="add-row_filter" class="dataTables_filter">
-                    <label>Поиск:
-                      <input type="search"
-                             class="form-control form-control-sm"
-                             placeholder=""
-                             aria-controls="add-row">
-                    </label>
-                  </div> -->
-                </div>
-              </div>
-              <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
-     
-                <ng-container matColumnDef="code">
-                  <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Кодовое название</th>
-                  <td mat-cell *matCellDef="let row">{{row.code}}</td>
-                </ng-container>
-            
-                <ng-container matColumnDef="name">
-                  <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Название RU</th>
-                  <td mat-cell *matCellDef="let row">{{row.name}}</td>
-                </ng-container>
-            
-                <ng-container matColumnDef="nameKz">
-                  <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Название KZ</th>
-                  <td mat-cell *matCellDef="let row">{{row.nameKz}}</td>
-                </ng-container>
-            
-                <ng-container matColumnDef="description">
-                  <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Описание RU</th>
-                  <td mat-cell *matCellDef="let row">{{row.description}}</td>
-                </ng-container> 
-            
-                <ng-container matColumnDef="descriptionKz">
-                  <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Описание KZ</th>
-                  <td mat-cell *matCellDef="let row">{{row.descriptionKz}}</td>
-                </ng-container> 
-            
-                <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef></th>
-                  <td mat-cell *matCellDef="let row" class="action-link"> 
-                    <div class="form-button-action">
-                      <button (click)="editRow(row.id)" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
-                              data-original-title="Edit Task">
-                        <i class="fa fa-edit"></i>
-                      </button>
-                      <button mat-button (click)="deleteRow(row.id)" class="btn btn-link btn-danger"  data-original-title="Remove">
-                        <i class="fa fa-times"></i>
-                      </button>
-                    </div>
-                  </td>
-                </ng-container>
-                <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-              <div class="row">
-                <div class="col-sm-12 col-md-5">
-                  <div class="dataTables_info" id="basic-datatables_info" role="status" aria-live="polite">Показаны с 1 по {{size}} из {{total}}
+                    <label>Показывать
+                      <select (change)="filterSource($event)" name="basic-datatables_length"
+                        aria-controls="basic-datatables" class="form-control form-control-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                      </select> записей</label>
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-7">
-                  <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
-                   <ul class="pagination">
-                      <li class="paginate_button page-item previous" id="basic-datatables_previous">
-                        <a (click)="decrementPage()"
-                        class="page-link">Пред.</a>                                                                                    
+                <div class="col-sm-12 col-md-3">
+                  <div class="dataTables_length">
+                    <label><strong>Город: </strong>
+                      <select style="width: auto;" [(ngModel)]="cityId" (ngModelChange)="getAll()"
+                        name="basic-datatables_length" aria-controls="basic-datatables"
+                        class="form-control form-control-sm">
+                        <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+                      </select></label> 
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                  <div class="dataTables_length">
+                    <label><strong>Тип санатория: </strong>
+                      <select style="width: auto;" [(ngModel)]="sanTypeCode" (ngModelChange)="getAll()"
+                        name="basic-datatables_length" aria-controls="basic-datatables"
+                        class="form-control form-control-sm">
+                        <option *ngFor="let sanType of sanTypes" [value]="sanType.code">{{sanType.name}}</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <div id="add-row_filter" class="dataTables_filter">
+                    <label><strong>Название: </strong>
+                      <input [(ngModel)]="searchValue" (ngModelChange)="onSearch()" type="search" class="form-control form-control-sm" placeholder=""
+                        aria-controls="add-row">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-1">
+                  <div id="add-row_filter" class="dataTables_filter">
+                    <button class="btn btn-default btn-round" style="padding: 5px 10px;" (click)="clear()">Очистить</button>
+                  </div>
+                </div>
+                <table mat-table [dataSource]="dataSource" matSort
+                  class="full-width-table display table table-striped table-hover dataTable" matSort
+                  aria-label="Elements">
+
+                  <ng-container matColumnDef="name">
+                    <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Название</th>
+                    <td mat-cell *matCellDef="let row">{{row.name}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="sanType">
+                    <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Тип</th>
+                    <td mat-cell *matCellDef="let row">{{row.sanType?row.sanType.name:""}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="city">
+                    <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Город</th>
+                    <td mat-cell *matCellDef="let row">{{row.city?row.city.name:""}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="address">
+                    <th class="sorting_asc" class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Адрес
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.address}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row" class="action-link">
+                      <div class="form-button-action">
+                        <button type="button" data-toggle="tooltip" title="" (click)="editRow(row.id)" class="btn btn-link btn-primary btn-lg"
+                          data-original-title="Show Bookings">
+                        Брони
+                        </button>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div class="row">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="basic-datatables_info" role="status" aria-live="polite">Показаны с 1 по {{size}} из {{total}}
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
+                     <ul class="pagination">
+                        <li class="paginate_button page-item previous" id="basic-datatables_previous">
+                          <a (click)="decrementPage()"
+                          class="page-link">Пред.</a>                                                                                    
+                        </li>
+                        <li *ngFor="let page of pages" class="paginate_button page-item active">
+                          <a aria-controls="basic-datatables"
+                          (click)="changeCurrentPage(page)" class="page-link">{{page}}
+                        </a>
                       </li>
-                      <li *ngFor="let page of pages" class="paginate_button page-item active">
-                        <a aria-controls="basic-datatables"
-                        (click)="changeCurrentPage(page)" class="page-link">{{page}}
-                      </a>
-                    </li>
-                      <li class="paginate_button page-item next" id="basic-datatables_next">
-                        <a (click)="incrementPage()"  
-                        class="page-link">След.</a>                                                   
-                      </li>
-                    </ul>
+                        <li class="paginate_button page-item next" id="basic-datatables_next">
+                          <a (click)="incrementPage()"  
+                          class="page-link">След.</a>                                                   
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -132,4 +150,3 @@
       </div>
     </div>
   </div>
-</div>

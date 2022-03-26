@@ -6,6 +6,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Sanatory } from 'src/app/model/Sanatory';
 import {Router} from '@angular/router'
+import { CitiesService } from 'src/app/services/cities.service';
+import { DictEntity } from 'src/app/model/DictEntity';
+import { SanTypeService } from 'src/app/services/sanType.service';
 
 @Component({
   selector: 'app-san-panel',
@@ -17,7 +20,7 @@ export class SanPanelComponent implements OnInit {
   title = 'Санатории';
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  Sanatory[];
 
-  displayedColumns = ['name','nameKz','description','descriptionKz','action'];
+  displayedColumns = ['name','sanType','city','address','action'];
 
   dataSource = new MatTableDataSource<Sanatory>(this.ELEMENT_DATA);
 
@@ -33,20 +36,36 @@ export class SanPanelComponent implements OnInit {
 
   pageCount:number;
 
-  pages:number[]
+  pages:number[];
+
+  cities:DictEntity[];
+
+  cityId:string;
+
+  sanTypes:DictEntity[];
+
+  sanTypeCode:string;
+
+  searchValue:string;
+
+  timeout:NodeJS.Timeout
 
   constructor(
     private service:SanService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private cityService:CitiesService,
+    private sanTypeService:SanTypeService
     ) { }
 
   ngOnInit(): void {
-    this.getAll() 
+    this.getAll();
+    this.getCities();
+    this.getSanType();
   }
 
   public getAll(){
-    let resp = this.service.getAll()
+    let resp = this.service.getAll({cityId:this.cityId,sanTypeCode:this.sanTypeCode,name:this.searchValue})
     resp.subscribe(res=>{
       this.originalSource.data = res['data'] as Sanatory[]
       this.dataSource.data = this.originalSource.data.filter((_,index)=> index<this.size)
@@ -55,7 +74,7 @@ export class SanPanelComponent implements OnInit {
     })
   }
   public editRow(id:string){
-    this.router.navigate(['/main/san/edit', id])
+    this.router.navigate(['/main/booking', id])
   }
   public deleteRow(row:Sanatory){
    this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
@@ -95,4 +114,28 @@ export class SanPanelComponent implements OnInit {
     }     
   }
 
+  getCities(){
+    this.cityService.getAll().subscribe({
+      next: (res)=> {this.cities = res['data']; console.log(this.cities);
+      }
+    })
+  }
+  getSanType(){
+    this.sanTypeService.getAll().subscribe({
+      next: (res)=> {this.sanTypes = res['data']; console.log(this.sanTypes);
+      }
+    })
+  }
+  onSearch(){
+    if(this.timeout) clearTimeout(this.timeout)
+   this.timeout = setTimeout(()=>{
+      this.getAll();
+    },1500)
+  }
+  clear(){
+    this.sanTypeCode = undefined;
+    this.searchValue = undefined;
+    this.cityId = undefined;
+    this.getAll();
+  }
 }

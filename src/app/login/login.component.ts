@@ -6,7 +6,8 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import { AuthRes } from '../model/AuthRes';
 import { AuthService } from '../services/auth.service';
-import { TokenStorageService } from '../services/toket-storage.service';
+import { TokenStorageService } from '../services/token-storage.service';
+import { AuthInterceptor } from '../interceptors/auth.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
     this.service.attemptAuth(this.form.getRawValue()).subscribe({
       next:(res)=>{
         console.log(res);
+        AuthInterceptor.accessToken = res.accessToken;
         this.storage.saveToken(res.accessToken);
         this.storage.saveRefreshToken(res.refreshToken)
         this.storage.saveUserId(res.userId)
@@ -42,15 +44,6 @@ export class LoginComponent implements OnInit {
       }
     }
     )
-    //  this.http.post(environment.hostURL+"/auth/sign-in", this.form.getRawValue(),
-    //  {withCredentials:true})
-    //    .subscribe((data:AuthRes)=>{
-    //     localStorage.setItem('accessToken', data.accessToken);
-    //     localStorage.setItem('refreshToken',data.refreshToken);
-    //    this.router.navigate(['/'])
-    //    }
-    // );
-    
   }
 
 }

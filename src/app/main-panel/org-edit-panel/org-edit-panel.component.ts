@@ -10,13 +10,9 @@ import { ConfirmationStatusEnum } from 'src/app/enums';
 import { Pic } from 'src/app/model/Pic';
 import { CompCatService } from 'src/app/services/compCat.service';
 import { User } from 'src/app/model/User';
-import { Notify} from 'notiflix'
+import { Notify} from 'notiflix';
+import {Option} from 'src/app/model/Option'
 
-
-type Option = {
-  id:string,
-  value:string
-}
 
 @Component({
   selector: 'app-org-edit-panel',

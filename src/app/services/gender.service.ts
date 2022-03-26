@@ -9,8 +9,7 @@ import { DictEntity } from '../model/DictEntity';
 export class GenderService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
-  )
+  })
   url = environment.hostURL+'/admin/dict/genders';
   constructor(private http:HttpClient) { }
 

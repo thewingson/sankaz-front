@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
@@ -25,21 +24,26 @@ import {LoginComponent} from './login/login.component';
 import {MainComponent} from './main/main.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ServiceCatEditPanelComponent} from "./main-panel/dictionary/service-cat-edit-panel/service-cat-edit-panel.component";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { MatSelectModule } from '@angular/material/select';
 import { UserForOrgComponent } from './main-panel/org-edit-panel/user-for-org/user-for-org.component';
-import * as Notiflix from 'notiflix';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import { AuthGuard } from './guards/auth.guard';
+import { BookingPanelComponent } from './main-panel/booking-panel/booking-panel.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const appRoutes : Routes = [
   { path:'', redirectTo:'/main', pathMatch:'full' },
   { path:'login', component:LoginComponent },
   {
-    path:'main', component:MainComponent,
+    path:'main', component:MainComponent, canActivate:[AuthGuard],
     children:[
       {path:'san', component:SanPanelComponent},
       {path:'san/edit/:id',component:SanEditPanelComponent},
@@ -47,6 +51,8 @@ const appRoutes : Routes = [
       {path:'org/edit/:id', component:OrgEditPanelComponent},
       {path:'user', component:UserPanelComponent},
       {path:'user/edit/:id', component:UserProfileComponent},
+      {path:'booking',component:BookingPanelComponent},
+      {path:'booking/:id',component:BookingPanelComponent},
       {path:'dict',children:[
           {path:'city/edit', component:CityEditPanelComponent},
           {path:'comp-cat/edit', component:CompCatEditPanelComponent},
@@ -83,7 +89,8 @@ const appRoutes : Routes = [
     NotFoundComponent,
     ServiceCatEditPanelComponent,
     UserForOrgComponent,
-    ApproveDialog
+    ApproveDialog,
+    BookingPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -98,9 +105,18 @@ const appRoutes : Routes = [
     BrowserAnimationsModule,
     MatSelectModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [RouterModule,FormsModule,ReactiveFormsModule],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:AuthInterceptor,
+      multi:true
+    },
+    {provide : LocationStrategy, useClass: HashLocationStrategy}, AuthGuard
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,8 +9,7 @@ import { DictEntity } from '../model/DictEntity';
 export class CompCatService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
-  )
+  })
   url = environment.hostURL+'/admin/dict/comp-categories';
   constructor(private http:HttpClient) { }
 

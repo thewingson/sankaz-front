@@ -9,8 +9,7 @@ import { User } from '../model/User';
 export class UserService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-  }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
-  )
+  })
   url = environment.hostURL+'/admin/users';
   constructor(private http:HttpClient) { }
 

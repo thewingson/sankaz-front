@@ -1,0 +1,159 @@
+<div class="page-inner">
+    <div class="page-header">
+      <h4 class="page-title">{{title}}</h4>
+      <ul class="breadcrumbs">
+        <li class="nav-home">
+          <a href="#">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
+        <li class="separator">
+          <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+          <i class="fas fa-hot-tub current-page-icon"></i>
+          <a href="#">{{title}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title">Весь список</h4>
+              <button (click)="editRow('new')" class="btn btn-primary btn-round ml-auto">
+                <i class="fa fa-plus"></i>
+                Создать
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+  
+            <div class="table-responsive">
+              <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12 col-md-2 col-lg-2 col-xl-3">
+                    <div class="dataTables_length" id="basic-datatables_length">
+                    <label>Показывать 
+                      <select (change)="filterSource($event)"
+                     name="basic-datatables_length" aria-controls="basic-datatables"
+                      class="form-control form-control-sm">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select> записей</label></div>
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-2 col-xl-3">
+                    <div id="add-row_filter" class="dataTables_length">
+                      <label><strong>Выберите даты: </strong>
+                      <mat-form-field appearance="legacy">
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input matStartDate (dateChange)="getAll()" [(ngModel)]="startDate">
+                          <input matEndDate   (dateChange)="getAll()" [(ngModel)]="endDate" >
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-4 col-xl-4">
+                    <div id="add-row_filter" class="dataTables_filter">
+                      <label><strong>Номер телефона: </strong>
+                        <input type="search" [(ngModel)]="telNumber" (ngModelChange)="onSearch()"  class="form-control form-control-sm" placeholder=""
+                          aria-controls="add-row">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-2 col-lg-2 col-xl-3">
+                    <div id="add-row_filter" class="dataTables_length">
+                      <label><strong>Статус: </strong>
+                        <select style="width: auto;" [(ngModel)]="status" (ngModelChange)="getAll()"
+                          name="basic-datatables_length" aria-controls="basic-datatables"
+                          class="form-control form-control-sm">
+                          <option *ngFor="let status of statuses" [value]="status.id">{{status.value}}</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                    <div class="col-sm-12 col-md-4 col-lg-2 col-xl-3">
+                      <div id="add-row_filter" class="dataTables_filter">
+                        <label><strong>Мин. цена: </strong>
+                          <input width="auto" type="number" [(ngModel)]="minPrice" (change)="onSearch()"  class="form-control form-control-sm" placeholder=""
+                            aria-controls="add-row">
+                        </label>
+                      </div>
+                    </div>
+                  <div class="col-sm-12 col-md-3 col-lg-4 col-xl-4">
+                    <div id="add-row_filter" class="dataTables_filter">
+                      <label><strong>Макс. цена: </strong>
+                        <input type="number" [(ngModel)]="maxPrice" (change)="onSearch()"  class="form-control form-control-sm" placeholder=""
+                          aria-controls="add-row">
+                      </label>
+                    </div>
+                  </div>
+                    <div class="col-sm-12 col-md-1 col-md-1 col-lg-1 col-xl-1 col-xl-1">
+                    <div id="add-row_filter" class="dataTables_filter">
+                      <button class="btn btn-default btn-round" style="padding: 5px 10px;" >Очистить</button>
+                    </div>
+                  </div>
+                </div>
+                <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
+              
+                  <ng-container matColumnDef="FIO">
+                    <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ФИО</th>
+                    <td mat-cell *matCellDef="let row">{{row.firstName + " " + row.lastName }}</td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="telNumber">
+                    <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Номер телефона</th>
+                    <td mat-cell *matCellDef="let row">{{row.telNumber}}</td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="startDate">
+                    <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Дата с</th>
+                    <td mat-cell *matCellDef="let row">{{row.startDate.slice(0,10)}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="endDate">
+                    <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Дата с</th>
+                    <td mat-cell *matCellDef="let row">{{row.endDate.slice(0,10)}}</td>
+                  </ng-container>
+                
+                  <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div class="row">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="basic-datatables_info" role="status" aria-live="polite">Показаны с 1 по {{size}} из {{total}}
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
+                     <ul class="pagination">
+                        <li class="paginate_button page-item previous" id="basic-datatables_previous">
+                          <a (click)="decrementPage()"
+                          class="page-link">Пред.</a>                                                                                    
+                        </li>
+                        <li *ngFor="let page of pages" class="paginate_button page-item active">
+                          <a aria-controls="basic-datatables"
+                          (click)="changeCurrentPage(page)" class="page-link">{{page}}
+                        </a>
+                      </li>
+                        <li class="paginate_button page-item next" id="basic-datatables_next">
+                          <a (click)="incrementPage()"  
+                          class="page-link">След.</a>                                                   
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

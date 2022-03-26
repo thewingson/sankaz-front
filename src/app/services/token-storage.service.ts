@@ -38,6 +38,6 @@ export class TokenStorageService {
   }
 
   public getUserId(): string {
-    return localStorage.getItem(REFRESH_TOKEN);
+    return localStorage.getItem(USER_ID);
   }
 }

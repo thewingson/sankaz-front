@@ -3,39 +3,39 @@ import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Sanatory } from '../model/Sanatory';
 
-type Filter = {
-cityId?: string,
-name?: string,
-sanTypeCode?: string,
-startDate?: string,
-endDate?: string,
-adults?: number,
-children?: number,
-page?: number,
-size?: number,
+type BookingFilter = {
+  sanId?:string,
+  telNumber?:string,
+  startDate?:string,
+  endDate?:string,
+  minPrice?:number,
+  maxPrice?:number,
+  page?:number,
+  size?:number,
+  status?:string
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class SanService {
+export class BookingService {
    headers:HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
   })
-  url = environment.hostURL+'/admin/sans';
+  url = environment.hostURL+'/admin/books/filter';
   constructor(private http:HttpClient) { }
 
 
- public getAll(filter:Filter){
-   const fields = ['cityId','name','sanTypeCode','startDate','endDate','adults','children','page','size'];
-   const formData = new FormData();
+ public getAll(filter:BookingFilter){
+  const fields = ['sanId','telNumber','status','startDate','endDate','minPrice','maxPrice','page','size'];
+  const formData = new FormData();
+  fields.forEach(el => {
+    formData.append(el,'');
+  })
    const headers = new HttpHeaders({}).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`)
-   fields.forEach(key => {
-     formData.append(key,'')
-   });
-   for (const [key,value] of Object.entries(filter)){
-     formData.set(key,value?value.toString():'');
-   }
+   for (const [key, value] of Object.entries(filter)) {
+    formData.set(key,value?value.toString():'')
+  }
    return this.http.post(this.url,formData,{headers:headers}) 
   }
 

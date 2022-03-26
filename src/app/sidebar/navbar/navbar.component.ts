@@ -22,8 +22,7 @@ export class NavbarComponent implements OnInit {
       new SidebarNavItem('Санатории', 'Main', 'fa-hot-tub', '/main/san', null),
       new SidebarNavItem('Организации', 'Main', 'fas fa-building', '/main/org', null),
       new SidebarNavItem('Справочники', 'Main', 'fas fa-book', '/main', this.dictionaryChildItems),
-      new SidebarNavItem('Брони', 'Main', 'fas fa-tty', '/main/order', null),
-      new SidebarNavItem('Настройки', 'Main', 'fas fa-cogs', '/main/settings', null),
+      new SidebarNavItem('Брони', 'Main', 'fas fa-tty', '/main/booking', null),
       new SidebarNavItem('Пользователи', 'Main', 'fas fa-users', '/main/user', null)
     ]
   };
