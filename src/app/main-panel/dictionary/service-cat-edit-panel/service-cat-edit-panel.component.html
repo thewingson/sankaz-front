@@ -34,55 +34,6 @@
           </div>
         </div>
         <div class="card-body">
-          <!-- Modal -->
-          <!--          <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">-->
-          <!--            <div class="modal-dialog" role="document">-->
-          <!--              <div class="modal-content">-->
-          <!--                <div class="modal-header no-bd">-->
-          <!--                  <h5 class="modal-title">-->
-          <!--														<span class="fw-mediumbold">-->
-          <!--														New</span>-->
-          <!--                    <span class="fw-light">-->
-          <!--															Row-->
-          <!--														</span>-->
-          <!--                  </h5>-->
-          <!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-          <!--                    <span aria-hidden="true">×</span>-->
-          <!--                  </button>-->
-          <!--                </div>-->
-          <!--                <div class="modal-body">-->
-          <!--                  <p class="small">Create a new row using this form, make sure you fill them all</p>-->
-          <!--                  <form>-->
-          <!--                    <div class="row">-->
-          <!--                      <div class="col-sm-12">-->
-          <!--                        <div class="form-group form-group-default">-->
-          <!--                          <label>Name</label>-->
-          <!--                          <input id="addName" type="text" class="form-control" placeholder="fill name">-->
-          <!--                        </div>-->
-          <!--                      </div>-->
-          <!--                      <div class="col-md-6 pr-0">-->
-          <!--                        <div class="form-group form-group-default">-->
-          <!--                          <label>Position</label>-->
-          <!--                          <input id="addPosition" type="text" class="form-control" placeholder="fill position">-->
-          <!--                        </div>-->
-          <!--                      </div>-->
-          <!--                      <div class="col-md-6">-->
-          <!--                        <div class="form-group form-group-default">-->
-          <!--                          <label>Office</label>-->
-          <!--                          <input id="addOffice" type="text" class="form-control" placeholder="fill office">-->
-          <!--                        </div>-->
-          <!--                      </div>-->
-          <!--                    </div>-->
-          <!--                  </form>-->
-          <!--                </div>-->
-          <!--                <div class="modal-footer no-bd">-->
-          <!--                  <button type="button" id="addRowButton" class="btn btn-primary">Add</button>-->
-          <!--                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
-
           <div class="table-responsive">
             <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
               <div class="row">
@@ -97,17 +48,17 @@
                   </select> элементов</label></div>
                 </div>
                 <div class="col-sm-12 col-md-6">
-                  <!-- <div id="add-row_filter" class="dataTables_filter"><label>Поиск:<input type="search"
-                                                                                         class="form-control form-control-sm"
-                                                                                         placeholder=""
-                                                                                         aria-controls="add-row"></label>
-                  </div> -->
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-12">
                   <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
      
+                    <ng-container matColumnDef="id">
+                      <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+                    </ng-container>
+                    
                     <ng-container matColumnDef="code">
                       <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Кодовое название</th>
                       <td mat-cell *matCellDef="let row">{{row.code}}</td>
@@ -150,32 +101,6 @@
                     <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12 col-md-5">
-                  <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">Показано 1-5 из 100
-                    элементов
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-7">
-                  <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
-                    <ul class="pagination">
-                      <li class="paginate_button page-item previous disabled" id="add-row_previous"><a href="#"
-                                                                                                       aria-controls="add-row"
-                                                                                                       data-dt-idx="0"
-                                                                                                       tabindex="0"
-                                                                                                       class="page-link">Пред.</a>
-                      </li>
-                      <li class="paginate_button page-item active"><a href="#" aria-controls="add-row" data-dt-idx="1"
-                                                                      tabindex="0" class="page-link">1</a></li>
-                      <li class="paginate_button page-item "><a href="#" aria-controls="add-row" data-dt-idx="2"
-                                                                tabindex="0" class="page-link">2</a></li>
-                      <li class="paginate_button page-item next" id="add-row_next"><a href="#" aria-controls="add-row"
-                                                                                      data-dt-idx="3" tabindex="0"
-                                                                                      class="page-link">След.</a></li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>

@@ -16,20 +16,29 @@
         </li>
       </ul>
     </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="width: auto;">
+          <room-for-booking #roomModal [statuses] ="statuses" [row]="row" [roomClasses]="roomClasses" ></room-for-booking>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <sanatory-for-booking (setSanId)="setSanId($event)"></sanatory-for-booking>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
             <div class="d-flex align-items-center">
-              <h4 class="card-title">Весь список</h4>
-              <button (click)="editRow('new')" class="btn btn-primary btn-round ml-auto">
-                <i class="fa fa-plus"></i>
-                Создать
-              </button>
+              <h4 class="card-title">{{this.selectedSan?"Брони санатония ":"Весь список"}}<strong *ngIf="this.selectedSan"><i>{{this.selectedSan.name}}</i></strong></h4>        
             </div>
           </div>
           <div class="card-body">
-  
             <div class="table-responsive">
               <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                 <div class="row">
@@ -46,7 +55,7 @@
                     </select> записей</label></div>
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-2 col-xl-3">
-                    <div id="add-row_filter" class="dataTables_length">
+                    <div class="dataTables_length">
                       <label><strong>Выберите даты: </strong>
                       <mat-form-field appearance="legacy">
                         <mat-date-range-input [rangePicker]="picker">
@@ -67,21 +76,28 @@
                       </label>
                     </div>
                   </div>
+                  <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xl-2">
+                      <button class="btn btn-primary btn-round" data-toggle="modal" data-target=".bd-example-modal-lg2" style="padding: 5px 10px;">Санаторий</button>
+                      <button class="btn" *ngIf="this.selectedSan" (click)="clearSelectedSan()" style="padding: 5px 10px;background-color: transparent;">
+                        <i class="fa fa-times"></i>
+                      </button>
+                  </div>
                   <div class="col-sm-12 col-md-2 col-lg-2 col-xl-3">
                     <div id="add-row_filter" class="dataTables_length">
                       <label><strong>Статус: </strong>
                         <select style="width: auto;" [(ngModel)]="status" (ngModelChange)="getAll()"
                           name="basic-datatables_length" aria-controls="basic-datatables"
                           class="form-control form-control-sm">
+                          <option [value]="0">...Выберите статус</option>
                           <option *ngFor="let status of statuses" [value]="status.id">{{status.value}}</option>
                         </select>
                       </label>
                     </div>
                   </div>
                     <div class="col-sm-12 col-md-4 col-lg-2 col-xl-3">
-                      <div id="add-row_filter" class="dataTables_filter">
+                      <div id="add-row_filter" class="dataTables_filter" style="text-align: right;">
                         <label><strong>Мин. цена: </strong>
-                          <input width="auto" type="number" [(ngModel)]="minPrice" (change)="onSearch()"  class="form-control form-control-sm" placeholder=""
+                          <input width="auto" type="number" [(ngModel)]="minPrice" (ngModelChange)="onSearch()"  class="form-control form-control-sm" placeholder=""
                             aria-controls="add-row">
                         </label>
                       </div>
@@ -89,19 +105,21 @@
                   <div class="col-sm-12 col-md-3 col-lg-4 col-xl-4">
                     <div id="add-row_filter" class="dataTables_filter">
                       <label><strong>Макс. цена: </strong>
-                        <input type="number" [(ngModel)]="maxPrice" (change)="onSearch()"  class="form-control form-control-sm" placeholder=""
+                        <input type="number" [(ngModel)]="maxPrice" (ngModelChange)="onSearch()"  class="form-control form-control-sm" placeholder=""
                           aria-controls="add-row">
                       </label>
                     </div>
                   </div>
-                    <div class="col-sm-12 col-md-1 col-md-1 col-lg-1 col-xl-1 col-xl-1">
-                    <div id="add-row_filter" class="dataTables_filter">
-                      <button class="btn btn-default btn-round" style="padding: 5px 10px;" >Очистить</button>
-                    </div>
-                  </div>
+                  <div class="col-sm-12 col-md-1 col-md-1 col-lg-1 col-xl-1 col-xl-1">
+                      <button class="btn btn-default btn-round" (click)="clear()" style="padding: 5px 10px;">Очистить</button>
                 </div>
                 <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
-              
+      
+                  <ng-container matColumnDef="id">
+                    <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                    <td mat-cell *matCellDef="let row">{{row.id}}</td>
+                  </ng-container>
+
                   <ng-container matColumnDef="FIO">
                     <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ФИО</th>
                     <td mat-cell *matCellDef="let row">{{row.firstName + " " + row.lastName }}</td>
@@ -120,9 +138,12 @@
                     <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Дата с</th>
                     <td mat-cell *matCellDef="let row">{{row.endDate.slice(0,10)}}</td>
                   </ng-container>
-                
+                  <ng-container matColumnDef="sumPrice">
+                    <th class="sorting_asc"class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Цена</th>
+                    <td mat-cell *matCellDef="let row">{{row.sumPrice}} &#8376;</td>
+                  </ng-container>
                   <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="onRowClick(row)"></tr>
                 </table>
                 <div class="row">
                   <div class="col-sm-12 col-md-5">

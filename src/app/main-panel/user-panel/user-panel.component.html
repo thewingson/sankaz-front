@@ -53,7 +53,12 @@
               <div class="row">
                 <div class="col-sm-12">
                   <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
-     
+                    
+                    <ng-container matColumnDef="id">
+                      <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+                    </ng-container>
+
                     <ng-container matColumnDef="username">
                       <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Имя пользователя</th>
                       <td mat-cell *matCellDef="let row">{{row.username}}</td>
@@ -105,7 +110,7 @@
                         <a (click)="decrementPage()"
                         class="page-link">Пред.</a>                                                                                    
                       </li>
-                      <li *ngFor="let page of pages" class="paginate_button page-item active">
+                      <li *ngFor="let page of pages" [ngClass]="page===currentPage?'paginate_button page-item active':'paginate_button page-item'">
                         <a aria-controls="basic-datatables"
                         (click)="changeCurrentPage(page)"   class="page-link">{{page}}
                       </a>

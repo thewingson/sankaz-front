@@ -1,0 +1,125 @@
+<div class="page-inner">
+    <div class="page-header">
+      <h4 class="page-title">{{title}}</h4>
+      <ul class="breadcrumbs">
+        <li class="nav-item">
+          <a href="#">Меню</a>
+        </li>
+        <li class="separator">
+          <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+          <i class="fa fa-question-circle"></i>
+          <a href="#">{{title}}</a>
+        </li>
+      </ul>
+    </div>
+    <faq-edit-modal  [row]="this.currentRow" [mode]="mode"></faq-edit-modal>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title">Весь список</h4>
+              <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target=".bd-example-modal-lg" mat-button (click)="mode = 'CREATE'">
+                <i class="fa fa-plus"></i>
+                Создать
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div id="basic-datatables_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="basic-datatables_length">
+                    <label>Показывать 
+                      <select (change)="filterSource($event)"
+                     name="basic-datatables_length" aria-controls="basic-datatables"
+                      class="form-control form-control-sm">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select> записей</label></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
+                      
+                      <ng-container matColumnDef="id">
+                        <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                        <td mat-cell *matCellDef="let row">{{row.id}}</td>
+                      </ng-container>
+                      
+                      <ng-container matColumnDef="question">
+                        <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Вопрос</th>
+                        <td mat-cell *matCellDef="let row" data-toggle="tooltip" data-placement="top" title={{row.question}} style="max-width: 200px;min-width: 100px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;">{{row.question}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="answer">
+                        <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Ответ</th>
+                        <td mat-cell *matCellDef="let row" data-toggle="tooltip" data-placement="top" title={{row.answer}} style="max-width: 200px;min-width: 100px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;">{{row.answer}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let row" class="action-link"> 
+                          <div class="form-button-action">
+                            <button  data-toggle="modal" data-target=".bd-example-modal-lg" mat-button (click)="onRowClick(row)" class="btn btn-link btn-success"  data-original-title="Show">
+                              <i class="fa fa-eye"></i>
+                            </button>
+                            <button  data-toggle="modal" data-target=".bd-example-modal-lg" mat-button (click)="editRow(row)" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">
+                              <i class="fa fa-edit"></i>
+                            </button>
+                            <button  data-toggle="modal" data-target=".bd-example-modal-lg" mat-button (click)="deleteRow(row)" class="btn btn-link btn-danger"  data-original-title="Remove">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="basic-datatables_info" role="status" aria-live="polite">Показаны с 1 по {{size}} из {{total}}
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="basic-datatables_paginate">
+                      <ul class="pagination">
+                        <li class="paginate_button page-item previous" id="basic-datatables_previous">
+                          <a (click)="decrementPage()"
+                          class="page-link">Пред.</a>                                                                                    
+                        </li>
+                        <li *ngFor="let page of pages" [ngClass]="page===currentPage+1?'paginate_button page-item active':'paginate_button page-item'">
+                          <a aria-controls="basic-datatables"
+                          (click)="changeCurrentPage(page)"   class="page-link">{{page}}
+                        </a>
+                      </li>
+                        <li class="paginate_button page-item next" id="basic-datatables_next">
+                          <a (click)="incrementPage()"  
+                          class="page-link">След.</a>                                                   
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

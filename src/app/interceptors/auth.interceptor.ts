@@ -26,13 +26,23 @@ export class AuthInterceptor implements HttpInterceptor {
     })
 
     return next.handle(req).pipe(catchError((err:HttpErrorResponse)=>{
-      if(err.status === 403){
+      console.log("err",err);
+      if(err.error.status === 403){
         AuthInterceptor.accessToken = this.storage.getToken();
-        console.log( AuthInterceptor.accessToken);
         return next.handle(request.clone({
           setHeaders:{
             Authorization: `Bearer ${AuthInterceptor.accessToken}`
           }
+        })).pipe(catchError((err2:HttpErrorResponse)=>{
+          if(err2.error.message === "Вы отправили недействительный токен"){
+            console.log("Вы отправили недействительный токен");
+          this.storage.signOut();
+          }
+          return next.handle(request.clone({
+            setHeaders:{
+              Authorization: `Bearer ${AuthInterceptor.accessToken}`
+            }
+          }))
         }))
       }
       return throwError(()=>err)

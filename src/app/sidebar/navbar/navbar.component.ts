@@ -13,7 +13,8 @@ export class NavbarComponent implements OnInit {
       new SidebarNavItem('Пол', 'Main', 'flaticon-store', '/main/dict/gender/edit', null),
       new SidebarNavItem('Кат. компании', 'Main', 'flaticon-agenda', '/main/dict/comp-cat/edit', null),
       new SidebarNavItem('Тип санатория', 'Main', 'fa-hot-tub', '/main/dict/san-type/edit', null),
-      new SidebarNavItem('Кат. сервиса', 'Main', 'fa-martini-glass', '/main/dict/service-cat/edit', null)
+      new SidebarNavItem('Кат. сервиса', 'Main', 'fa-martini-glass', '/main/dict/service-cat/edit', null),
+      new SidebarNavItem('Тип номера', 'Main', 'fa-martini-glass', '/main/dict/room-class/edit', null)
     ];
 
   model: SidebarNavList = {
@@ -23,7 +24,8 @@ export class NavbarComponent implements OnInit {
       new SidebarNavItem('Организации', 'Main', 'fas fa-building', '/main/org', null),
       new SidebarNavItem('Справочники', 'Main', 'fas fa-book', '/main', this.dictionaryChildItems),
       new SidebarNavItem('Брони', 'Main', 'fas fa-tty', '/main/booking', null),
-      new SidebarNavItem('Пользователи', 'Main', 'fas fa-users', '/main/user', null)
+      new SidebarNavItem('Пользователи', 'Main', 'fas fa-users', '/main/user', null),
+      new SidebarNavItem('FAQ', 'Main', 'fa fa-question-circle', '/main/faq', null)
     ]
   };
 

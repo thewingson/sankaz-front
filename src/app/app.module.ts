@@ -35,9 +35,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { UserForOrgComponent } from './main-panel/org-edit-panel/user-for-org/user-for-org.component';
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 import { AuthGuard } from './guards/auth.guard';
-import { BookingPanelComponent } from './main-panel/booking-panel/booking-panel.component';
+import { BookingPanelComponent, RoomForBookingComponent } from './main-panel/booking-panel/booking-panel.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RoomClassPanelComponent } from './main-panel/dictionary/room-class-panel/room-class-panel.component';
+import { SanatoryForBookingPanel } from './main-panel/booking-panel/sanatory-for-booking/sanatory-for-booking.component';
+import { FaqEditModal, FaqPanelComponent } from './main-panel/faq-panel/faq-panel/faq-panel.component';
 
 const appRoutes : Routes = [
   { path:'', redirectTo:'/main', pathMatch:'full' },
@@ -53,12 +56,14 @@ const appRoutes : Routes = [
       {path:'user/edit/:id', component:UserProfileComponent},
       {path:'booking',component:BookingPanelComponent},
       {path:'booking/:id',component:BookingPanelComponent},
+      {path:'faq',component:FaqPanelComponent},
       {path:'dict',children:[
           {path:'city/edit', component:CityEditPanelComponent},
           {path:'comp-cat/edit', component:CompCatEditPanelComponent},
           {path:'gender/edit', component:GenderEditPanelComponent},
           {path:'san-type/edit', component:SanTypeEditPanelComponent},
           {path:'service-cat/edit', component:ServiceCatEditPanelComponent},
+          {path:'room-class/edit', component:RoomClassPanelComponent},
         ]}
     ]
   },
@@ -90,15 +95,20 @@ const appRoutes : Routes = [
     ServiceCatEditPanelComponent,
     UserForOrgComponent,
     ApproveDialog,
-    BookingPanelComponent
+    BookingPanelComponent,
+    RoomForBookingComponent,
+    RoomClassPanelComponent,
+    SanatoryForBookingPanel,
+    FaqPanelComponent,
+    FaqEditModal
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-    ,RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes,{useHash:false}),
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
@@ -106,7 +116,7 @@ const appRoutes : Routes = [
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   exports: [RouterModule,FormsModule,ReactiveFormsModule],
   providers: [

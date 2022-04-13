@@ -18,7 +18,7 @@ export class UserPanelComponent implements OnInit {
 
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  User[];
 
-  displayedColumns = ['username','fullName','userType','confirmationStatus','action'];
+  displayedColumns = ['id','username','fullName','userType','confirmationStatus','action'];
 
   dataSource = new MatTableDataSource<User>(this.ELEMENT_DATA);
 
@@ -75,15 +75,17 @@ export class UserPanelComponent implements OnInit {
   }
 
   incrementPage(){
-    if(this.currentPage< this.pageCount - 1)
+    if(this.currentPage< this.pageCount)
     this.currentPage = this.currentPage + 1
     else this.currentPage = 1;
+    this.getAll()
   }
 
   decrementPage(){
     if(this.currentPage>1)
     this.currentPage = this.currentPage - 1
     else this.currentPage = this.pageCount;
+    this.getAll();
   }
 
   public calcPageCount(){

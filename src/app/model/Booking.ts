@@ -1,3 +1,5 @@
+import { Room } from "./Room";
+
 export interface Booking {
   adults: number;
   approvedDate: string;
@@ -12,6 +14,7 @@ export interface Booking {
   status: string;
   telNumber: string;
   userId: number;
+  room:Room;
 }
 export enum BookingStatus {
   'WAITING' = 'Ожидание оплаты',

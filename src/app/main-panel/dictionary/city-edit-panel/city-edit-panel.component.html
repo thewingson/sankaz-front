@@ -108,7 +108,12 @@
                 <div class="col-sm-12">
                
   <table mat-table [dataSource]="dataSource" matSort class="full-width-table display table table-striped table-hover dataTable" matSort aria-label="Elements">
-     
+   
+    <ng-container matColumnDef="id">
+      <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+   
     <ng-container matColumnDef="code">
       <th class="sorting_asc" mat-header-cell *matHeaderCellDef mat-sort-header>Кодовое название</th>
       <td mat-cell *matCellDef="let row">{{row.code}}</td>
@@ -153,7 +158,7 @@
   </table>
                 </div>
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-sm-12 col-md-5">
                   <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">Показано 1-5 из 100
                     элементов
@@ -178,7 +183,7 @@
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

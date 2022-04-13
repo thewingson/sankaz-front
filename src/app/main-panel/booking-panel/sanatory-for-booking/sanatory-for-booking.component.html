@@ -1,41 +1,10 @@
-<div class="page-inner">
-  <div class="page-header">
-    <h4 class="page-title">{{title}}</h4>
-    <ul class="breadcrumbs">
-      <li class="nav-home">
-        <a href="#">
-          <i class="fas fa-home"></i>
-        </a>
-      </li>
-      <li class="separator">
-        <i class="flaticon-right-arrow"></i>
-      </li>
-      <li class="nav-item">
-        <i class="fas fa-hot-tub current-page-icon"></i>
-        <a href="#">{{title}}</a>
-      </li>
-    </ul>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="d-flex align-items-center">
-            <h4 class="card-title">Весь список</h4>
-            <button (click)="editRow('new')" class="btn btn-primary btn-round ml-auto">
-              <i class="fa fa-plus"></i>
-              Создать
-            </button>
-          </div>
-        </div>
         <div class="card-body">
-
           <div class="table-responsive">
             <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
               <div class="row">
-                <div class="col-sm-12 col-md-2">
+                <div class="col-sm-12 col-md-6">
                   <div class="dataTables_length" id="basic-datatables_length">
-                    <label>Показывать
+                    <label style="width: 80%;">Показывать
                       <select (change)="filterSource($event)" name="basic-datatables_length"
                         aria-controls="basic-datatables" class="form-control form-control-sm">
                         <option value="10">10</option>
@@ -45,41 +14,33 @@
                       </select> записей</label>
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="dataTables_length">
-                    <label><strong>Город: </strong>
-                      <select style="width: auto;" [(ngModel)]="cityId" (ngModelChange)="getAll()"
+                <div class="col-sm-12 col-md-6">
+                    <label style="width: 80%;"><strong>Город: </strong>
+                      <select  [(ngModel)]="cityId" (ngModelChange)="getAll()"
                         name="basic-datatables_length" aria-controls="basic-datatables"
                         class="form-control form-control-sm">
-                        <option [value]="0">...Выберите город</option>
                         <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
                       </select></label> 
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="dataTables_length">
-                    <label><strong>Тип санатория: </strong>
-                      <select style="width: auto;" [(ngModel)]="sanTypeCode" (ngModelChange)="getAll()"
+                    </div>
+                <div class="col-sm-12 col-md-6">
+                    <label style="width: 80%;"><strong>Тип санатория: </strong>
+                      <select [(ngModel)]="sanTypeCode" (ngModelChange)="getAll()"
                         name="basic-datatables_length" aria-controls="basic-datatables"
                         class="form-control form-control-sm">
-                        <option [value]="0">...Выберите город</option>
                         <option *ngFor="let sanType of sanTypes" [value]="sanType.code">{{sanType.name}}</option>
                       </select>
                     </label>
-                  </div>
                 </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="dataTables_filter">
-                    <label><strong>Название: </strong>
+                <div class="col-sm-12 col-md-6">
+                    <label style="width: 80%;"><strong>Название: </strong>
                       <input [(ngModel)]="searchValue" (ngModelChange)="onSearch()" type="search" class="form-control form-control-sm" placeholder=""
                         aria-controls="add-row">
                     </label>
-                  </div>
                 </div>
-                <div class="col-sm-12 col-md-1">
-                  <div id="add-row_filter" class="dataTables_filter">
-                    <button class="btn btn-default btn-round" style="padding: 5px 10px;" (click)="clear()">Очистить</button>
-                  </div>
+                <div class="col-sm-12 col-md-6">
+                </div>
+                <div class="col-sm-12 col-md-1" style="margin-top: 10px;">
+                  <button class="btn btn-default btn-round" style="padding: 5px 10px;" (click)="clear()">Очистить</button>
                 </div>
                 <table mat-table [dataSource]="dataSource" matSort
                   class="full-width-table display table table-striped table-hover dataTable" matSort
@@ -110,20 +71,11 @@
                     </th>
                     <td mat-cell *matCellDef="let row">{{row.address}}</td>
                   </ng-container>
-
-                  <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                    <td mat-cell *matCellDef="let row" class="action-link">
-                      <div class="form-button-action">
-                        <button type="button" data-toggle="tooltip" title="" (click)="editRow(row.id)" class="btn btn-link btn-primary btn-lg"
-                          data-original-title="Show Bookings">
-                        Брони
-                        </button>
-                      </div>
-                    </td>
-                  </ng-container>
                   <tr role="row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr role="row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr  mat-row
+                    (click)="rowClick(row)"
+                    [class.demo-row-is-clicked]="clickedRow === row.id"
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
                 <div class="row">
                   <div class="col-sm-12 col-md-5">
@@ -151,9 +103,9 @@
                   </div>
                 </div>
               </div>
+              <div class="row-ok">
+                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="onOk()">ОК</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>

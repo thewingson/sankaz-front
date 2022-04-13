@@ -15,12 +15,11 @@ export class UserService {
 
 
  public getAll(pageNumber?,offset?){
-  if(pageNumber&&offset){
+  
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page",pageNumber).append("size",offset);
     return this.http.get(this.url,{headers:this.headers,params:queryParams});
-  }  
- return  this.http.get(this.url,{headers:this.headers});
+    
   }
 
   public getAllForOrg(page?,size?,fullName?,telNumber?){

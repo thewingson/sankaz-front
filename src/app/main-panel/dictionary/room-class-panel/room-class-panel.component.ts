@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { GenderService } from 'src/app/services/gender.service';
+import { RoomClassService } from 'src/app/services/roomClass.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DictEntity } from 'src/app/model/DictEntity';
 
 @Component({
-  selector: 'app-gender-edit-panel',
-  templateUrl: './gender-edit-panel.component.html',
-  styleUrls: ['./gender-edit-panel.component.css']
+  selector: 'room-class-panel',
+  templateUrl: './room-class-panel.component.html',
+  styleUrls: ['./room-class-panel.component.css']
 })
-export class GenderEditPanelComponent implements OnInit {
-  title = 'Пол';
+export class RoomClassPanelComponent implements OnInit {
+  title = 'Тип номера';
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEntity[];
 
   displayedColumns = ['id','code','name','nameKz','description','descriptionKz','action'];
@@ -23,7 +23,7 @@ export class GenderEditPanelComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private service:GenderService,
+    private service:RoomClassService,
     private formBuilder:FormBuilder,
     public dialog: MatDialog
     ) { }
@@ -86,4 +86,5 @@ export class GenderEditPanelComponent implements OnInit {
       nameKz:''
     })
   }
+
 }

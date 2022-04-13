@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { SanService } from 'src/app/services/san.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,16 +11,19 @@ import { DictEntity } from 'src/app/model/DictEntity';
 import { SanTypeService } from 'src/app/services/sanType.service';
 
 @Component({
-  selector: 'app-san-panel',
-  templateUrl: './san-panel.component.html',
-  styleUrls: ['./san-panel.component.css', "../main-panel.component.css"]
+  selector: 'sanatory-for-booking',
+  templateUrl: './sanatory-for-booking.component.html',
+  styleUrls: ['./sanatory-for-booking.component.css',"../../main-panel.component.css"]
 })
-export class SanPanelComponent implements OnInit {
+export class SanatoryForBookingPanel implements OnInit {
 
   title = 'Санатории';
+  
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  Sanatory[];
 
-  displayedColumns = ['id','name','sanType','city','address','action'];
+  @Output() setSanId:EventEmitter<Sanatory> = new EventEmitter()
+
+  displayedColumns = ['id','name','sanType','city','address'];
 
   dataSource = new MatTableDataSource<Sanatory>(this.ELEMENT_DATA);
 
@@ -32,7 +35,7 @@ export class SanPanelComponent implements OnInit {
 
   total:number;
 
-  currentPage:number = 0;
+  currentPage:number = 1;
 
   pageCount:number;
 
@@ -48,7 +51,11 @@ export class SanPanelComponent implements OnInit {
 
   searchValue:string;
 
-  timeout:NodeJS.Timeout
+  timeout:NodeJS.Timeout;
+  
+  clickedRow:number;
+
+  currentRow:Sanatory;
 
   constructor(
     private service:SanService,
@@ -65,9 +72,7 @@ export class SanPanelComponent implements OnInit {
   }
 
   public getAll(){
-    if(this.cityId==="0") this.cityId = undefined;
-    if(this.sanTypeCode==="0") this.sanTypeCode = undefined;
-    let resp = this.service.getAll({cityId:this.cityId,sanTypeCode:this.sanTypeCode,name:this.searchValue,page:this.currentPage,size:this.size})
+    let resp = this.service.getAll({cityId:this.cityId,sanTypeCode:this.sanTypeCode,name:this.searchValue})
     resp.subscribe(res=>{
       this.originalSource.data = res['data'] as Sanatory[]
       this.dataSource.data = this.originalSource.data.filter((_,index)=> index<this.size)
@@ -76,10 +81,7 @@ export class SanPanelComponent implements OnInit {
     })
   }
   public editRow(id:string){
-    const selectedSan = this.dataSource.data.find(d=>d.id===Number(id))
-    console.log("бронь",selectedSan);
-    if(selectedSan)
-    this.router.navigate(['/main/booking', id],{state:{selectedSan:selectedSan}})
+    this.router.navigate(['/main/booking', id])
   }
   public deleteRow(row:Sanatory){
    this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
@@ -142,5 +144,13 @@ export class SanPanelComponent implements OnInit {
     this.searchValue = undefined;
     this.cityId = undefined;
     this.getAll();
+  }
+  public rowClick(row:Sanatory){
+    console.log(row);
+    this.clickedRow = row.id;
+    this.currentRow = row;
+   }
+   public onOk(){
+    this.setSanId.emit(this.currentRow)
   }
 }

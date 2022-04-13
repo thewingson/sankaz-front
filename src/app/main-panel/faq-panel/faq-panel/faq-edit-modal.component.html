@@ -1,0 +1,31 @@
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div *ngIf="mode === 'EDIT'||'CREATE'" class="modal-content">
+            <div class="form-control">
+                <label for="exampleFormControlTextarea1">Вопрос</label>
+                <textarea placeholder="Введите вопрос..."  class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10" [value]="row&&row.question?row.question:''"  (change)="changeQuestion($event)"></textarea>
+            </div>
+              <div class="form-control">
+                <label for="exampleFormControlTextarea1">Ответ</label>
+                <textarea placeholder="Введите ответ..." class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10" [value]="row&&row.answer?row.answer:''" (change)="changeAnswer($event)"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" (click)="onSave()" class="btn btn-primary">Сохранить</button>
+              </div>
+        </div>
+        <div *ngIf="mode === 'VIEW'" class="modal-content">
+            <div class="form-control">
+                <label for="exampleFormControlTextarea1">Вопрос</label>
+                <textarea disabled aria-readonly="true" placeholder="Введите вопрос..."  class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10" [value]="row&&row.question?row.question:''"></textarea>
+            </div>
+              <div class="form-control">
+                <label for="exampleFormControlTextarea1">Ответ</label>
+                <textarea disabled aria-readonly="true" placeholder="Введите ответ..." class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10" [value]="row&&row.answer?row.answer:''"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+              </div>
+          </div>
+    </div>
+  </div>

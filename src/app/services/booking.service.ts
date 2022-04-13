@@ -8,8 +8,8 @@ type BookingFilter = {
   telNumber?:string,
   startDate?:string,
   endDate?:string,
-  minPrice?:number,
-  maxPrice?:number,
+  minPrice?:string,
+  maxPrice?:string,
   page?:number,
   size?:number,
   status?:string

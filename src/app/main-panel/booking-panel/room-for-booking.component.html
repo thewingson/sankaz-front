@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <div class="row justify-content-center">
+    <div class="profile-picture">
+      <div class="col-md-6">
+        <div class="avatar avatar-xl rounded-circle ava-back">
+          <input id="upload" type="file" style="display: none;">
+          <img *ngIf="row&&row.room&&row.room.san&&row.room.san.mainPicUrl" alt="..." class="avatar-img rounded-circle">
+        </div>
+        <div class="col-md-6">
+          <h2 class="modal-title">{{row&&row.room&&row.room.name?row.room.name:""}}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.room&&row.room.classId?getRoomClassName(row.room.classId):""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.room&&row.room.roomCount?row.room.roomCount + " - комнатный номер":""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.room&&row.room.bedCount?row.room.bedCount + " человек":""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class=" col-md-12">
+      <h4><strong>{{row&&row.startDate?"Дата брони: " + formattedDate(row.startDate.slice(0,10)):""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.startDate?"Дата прибытия: " + formattedDate(row.startDate.slice(0,10)):""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.endDate?"Дата выезда: " + formattedDate(row.endDate.slice(0,10)):""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.id?"Бронь #"+row.id:""}}</strong></h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h4><strong>{{row&&row.status?"Статус: "+statusName(row.status):""}}</strong></h4>
+    </div>
+  </div>
+</div>

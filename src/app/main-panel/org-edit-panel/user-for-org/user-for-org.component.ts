@@ -18,7 +18,7 @@ export class UserForOrgComponent implements OnInit {
 
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  User[];
 
-  displayedColumns = ['username','fullName','email'];
+  displayedColumns = ['id','username','fullName','email'];
 
   dataSource = new MatTableDataSource<User>(this.ELEMENT_DATA);
 

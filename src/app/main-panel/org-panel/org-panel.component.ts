@@ -20,7 +20,7 @@ export class OrgPanelComponent implements OnInit {
 
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  Organization[];
 
-  displayedColumns = ['name','managerFullName','email','telNumber','address','action'];
+  displayedColumns = ['id','name','managerFullName','email','telNumber','address','action'];
 
   dataSource = new MatTableDataSource<Organization>(this.ELEMENT_DATA);
 
@@ -59,6 +59,8 @@ export class OrgPanelComponent implements OnInit {
   }
 
   public getAll(){
+    this.params.size = this.size.toString();
+    this.params.page = this.currentPage.toString();
     let resp = this.service.getAll(this.params)
     resp.subscribe(res=>{
       this.originalSource.data = res['data']['content'] as Organization[]

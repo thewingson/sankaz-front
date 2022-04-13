@@ -16,7 +16,7 @@ export class CompCatEditPanelComponent implements OnInit {
 
   @Input('ELEMENT_DATA')  ELEMENT_DATA!:  DictEntity[];
 
-  displayedColumns = ['code','name','nameKz','description','descriptionKz','action'];
+  displayedColumns = ['id','code','name','nameKz','description','descriptionKz','action'];
 
   dataSource = new MatTableDataSource<DictEntity>(this.ELEMENT_DATA);
 
