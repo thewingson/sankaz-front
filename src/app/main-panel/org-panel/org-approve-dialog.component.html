@@ -1,0 +1,5 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-actions align="end">
+  <button class="btn btn-light mr-3" mat-button [mat-dialog-close]="false">Нет</button>
+  <button (click)="onOk()"  class="btn btn-dark" cdkFocusInitial>Да</button>
+</mat-dialog-actions>

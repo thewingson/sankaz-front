@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { OrgService } from 'src/app/services/organization.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Organization } from 'src/app/model/Organization';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DictEntity } from 'src/app/model/DictEntity';
@@ -125,12 +124,11 @@ export class OrgEditPanelComponent implements OnInit {
       }
    }
 
-  public deleteRow(row:Organization){
-   this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getData())
-   }
-   public cancel(){
-    this.router.navigate(['/main/Organization'])
+   public cancel(e:Event){
+     e.preventDefault();
+    this.router.navigate(['/main/org'])
   }
+
 
   public setUser(user:User){
     this.form.controls['user'].patchValue(user);

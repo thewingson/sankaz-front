@@ -34,8 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${AuthInterceptor.accessToken}`
           }
         })).pipe(catchError((err2:HttpErrorResponse)=>{
-          if(err2.error.message === "Вы отправили недействительный токен"){
-            console.log("Вы отправили недействительный токен");
+          if(err2.error.message === "Вы отправили недействительный токен" || err2.message.startsWith('The Token has expired on')){
           this.storage.signOut();
           }
           return next.handle(request.clone({

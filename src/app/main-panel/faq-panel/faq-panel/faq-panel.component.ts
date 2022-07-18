@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { OnInit, Input, Component, Inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FaqService } from 'src/app/services/faq.service';
 import { Faq } from 'src/app/model/Faq';
+import { Notify } from 'notiflix';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'faq-panel',
@@ -36,6 +38,8 @@ export class FaqPanelComponent implements OnInit {
 
   mode:string;
 
+  @ViewChild('childModal') public childModal:ModalDirective;
+
   constructor(
     private service:FaqService,
     public dialog: MatDialog,
@@ -61,7 +65,9 @@ export class FaqPanelComponent implements OnInit {
     this.mode='EDIT'
   }
   public deleteRow(row:Faq){
-   //this.service.deleteOneById(row.id).subscribe(()=>this.getAll())
+    this.dialog.open(FaqApproveDialog,{data:{id:row.id}}).afterClosed().subscribe(res=>{
+      if(res) this.getAll();
+    })
    }
 
    public filterSource(value:Event){
@@ -80,6 +86,11 @@ export class FaqPanelComponent implements OnInit {
     console.log('ROW CLICK');
       this.currentRow = row;
       this.mode = 'VIEW';
+  }
+
+  public  onCreateClick(){
+    console.log('CREATE Click')
+    this.mode = 'CREATE'
   }
 
   incrementPage(){
@@ -107,6 +118,7 @@ export class FaqPanelComponent implements OnInit {
     }     
   }
 
+
 }
 
 @Component({
@@ -128,6 +140,7 @@ export class FaqEditModal implements OnInit {
      }
 
   ngOnInit(): void {
+    console.log(this.mode)
   }
 
   public onSave(){
@@ -153,4 +166,24 @@ export class FaqEditModal implements OnInit {
     }
   }
 
+}
+
+@Component({
+  selector: 'faq-approve-dialog',
+  templateUrl: 'faq-approve-dialog.component.html',
+})
+
+export class FaqApproveDialog {
+
+  title:string = 'Вы уверены, что хотите удалить данную запись?';
+  constructor(private dialogRef: MatDialogRef<any>, private service:FaqService, @Inject(MAT_DIALOG_DATA) public data:any){
+  this.onOk = () => this.service.deleteOne(this.data.id).subscribe({
+      next:(v)=>Notify.success('Запись удалена'),
+      error:(e)=>Notify.failure('Произошла ошибка при удалении записи'),
+      complete:()=>dialogRef.close(true)
+    });
+  }
+
+  public onOk(){
+  }
 }

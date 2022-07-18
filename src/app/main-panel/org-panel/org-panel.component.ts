@@ -72,9 +72,11 @@ export class OrgPanelComponent implements OnInit {
   public editRow(id:string){
     this.router.navigate(['/main/org/edit', id])
   }
+ 
   public deleteRow(row:Organization){
-   this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
-   }
+    this.dialog.open(OrgApproveDialog,{data:{id:row.id}}).afterClosed().subscribe(res=>{
+      if(res) this.getAll();
+    })}
 
    public filterSource(value:Event){
      this.size = Number((value.target as HTMLSelectElement).value);
@@ -154,4 +156,23 @@ export class ApproveDialog {
   }
   }
   public onOk(){}
+}
+@Component({
+  selector: 'org-approve-dialog',
+  templateUrl: 'org-approve-dialog.component.html',
+})
+
+export class OrgApproveDialog {
+
+  title:string = 'Вы уверены, что хотите удалить данную запись?';
+  constructor(private dialogRef: MatDialogRef<any>, private service:OrgService, @Inject(MAT_DIALOG_DATA) public data:any){
+  this.onOk = () => this.service.deleteOneById(this.data.id).subscribe({
+      next:(v)=>Notify.success('Запись удалена'),
+      error:(e)=>Notify.failure('Произошла ошибка при удалении записи'),
+      complete:()=>dialogRef.close(true)
+    });
+  }
+
+  public onOk(){
+  }
 }

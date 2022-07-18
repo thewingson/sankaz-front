@@ -1,6 +1,5 @@
 export const environment = {
   production: false,
-  hostURL:'http://185.146.1.64:8099'
- // hostURL:'http://192.168.88.184:8080'
+  hostURL: 'http://195.210.47.239:8078',
+  // hostURL:'http://192.168.88.184:8080'
 };
-

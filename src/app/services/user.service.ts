@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/User';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+
 
 @Injectable({
   providedIn: 'root'
@@ -54,12 +56,14 @@ export class UserService {
   }
 
   public uploadImage(data:User,image:File){
+    const cyrillicToTranslit = new CyrillicToTranslit();
     const headers:HttpHeaders = new HttpHeaders({
     }).set('Authorization', `Bearer ${localStorage.getItem('AuthAccessToken')}`
     )
     const formData = new FormData();
     console.log(image)
-    formData.append('pic',image,image.name)
+    formData.append('pic',image,cyrillicToTranslit.transform(image.name,'_'))
+    debugger
     return this.http.put(this.url+`/${data.id}/pics`,formData,{headers:headers})
   }
 }

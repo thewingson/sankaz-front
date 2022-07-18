@@ -8,7 +8,7 @@ import {MainPanelComponent} from './main-panel/main-panel.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RouterModule, Routes} from "@angular/router";
 import {SanPanelComponent} from './main-panel/san-panel/san-panel.component';
-import {ApproveDialog, OrgPanelComponent} from './main-panel/org-panel/org-panel.component';
+import {ApproveDialog, OrgApproveDialog, OrgPanelComponent} from './main-panel/org-panel/org-panel.component';
 import {UserPanelComponent} from './main-panel/user-panel/user-panel.component';
 import {NavbarComponent} from './sidebar/navbar/navbar.component';
 import {NavbarItemComponent} from './sidebar/navbar/navbar-item/navbar-item.component';
@@ -27,7 +27,7 @@ import {ServiceCatEditPanelComponent} from "./main-panel/dictionary/service-cat-
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
@@ -40,7 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RoomClassPanelComponent } from './main-panel/dictionary/room-class-panel/room-class-panel.component';
 import { SanatoryForBookingPanel } from './main-panel/booking-panel/sanatory-for-booking/sanatory-for-booking.component';
-import { FaqEditModal, FaqPanelComponent } from './main-panel/faq-panel/faq-panel/faq-panel.component';
+import { FaqApproveDialog, FaqEditModal, FaqPanelComponent } from './main-panel/faq-panel/faq-panel/faq-panel.component';
 
 const appRoutes : Routes = [
   { path:'', redirectTo:'/main', pathMatch:'full' },
@@ -100,7 +100,9 @@ const appRoutes : Routes = [
     RoomClassPanelComponent,
     SanatoryForBookingPanel,
     FaqPanelComponent,
-    FaqEditModal
+    FaqEditModal,
+    FaqApproveDialog,
+    OrgApproveDialog
   ],
   imports: [
     BrowserModule,
@@ -117,6 +119,7 @@ const appRoutes : Routes = [
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+      
   ],
   exports: [RouterModule,FormsModule,ReactiveFormsModule],
   providers: [
@@ -125,7 +128,8 @@ const appRoutes : Routes = [
       useClass:AuthInterceptor,
       multi:true
     },
-    {provide : LocationStrategy, useClass: HashLocationStrategy}, AuthGuard
+    {provide : LocationStrategy, useClass: HashLocationStrategy}, AuthGuard,
+    { provide: MAT_DIALOG_DATA, useValue: {} },
     ],
   bootstrap: [AppComponent]
 })
