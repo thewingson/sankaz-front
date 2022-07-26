@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
-  HttpClient
+  HttpClient,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,36 +15,56 @@ import { TokenStorageService } from '../services/token-storage.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   static accessToken = '';
-  constructor(private http:HttpClient,private router:Router,private storage:TokenStorageService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private storage: TokenStorageService
+  ) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     const req = request.clone({
-      setHeaders:{
-        Authorization: `Bearer ${AuthInterceptor.accessToken}`
-      }
-    })
+      setHeaders: {
+        Authorization: `Bearer ${AuthInterceptor.accessToken}`,
+      },
+    });
 
-    return next.handle(req).pipe(catchError((err:HttpErrorResponse)=>{
-      console.log("err",err);
-      if(err.error.status === 403){
-        AuthInterceptor.accessToken = this.storage.getToken();
-        return next.handle(request.clone({
-          setHeaders:{
-            Authorization: `Bearer ${AuthInterceptor.accessToken}`
-          }
-        })).pipe(catchError((err2:HttpErrorResponse)=>{
-          if(err2.error.message === "Вы отправили недействительный токен" || err2.message.startsWith('The Token has expired on')){
-          this.storage.signOut();
-          }
-          return next.handle(request.clone({
-            setHeaders:{
-              Authorization: `Bearer ${AuthInterceptor.accessToken}`
-            }
-          }))
-        }))
-      }
-      return throwError(()=>err)
-    }));
+    return next.handle(req).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log('err', err);
+        if (err.error.status === 403) {
+          AuthInterceptor.accessToken = this.storage.getToken();
+          return next
+            .handle(
+              request.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${AuthInterceptor.accessToken}`,
+                },
+              })
+            )
+            .pipe(
+              catchError((err2: HttpErrorResponse) => {
+                if (
+                  err2.error.message ===
+                    'Вы отправили недействительный токен' ||
+                  err2.message.startsWith('The Token has expired on')
+                ) {
+                  this.storage.signOut();
+                }
+                return next.handle(
+                  request.clone({
+                    setHeaders: {
+                      Authorization: `Bearer ${AuthInterceptor.accessToken}`,
+                    },
+                  })
+                );
+              })
+            );
+        }
+        return throwError(() => err);
+      })
+    );
   }
 }

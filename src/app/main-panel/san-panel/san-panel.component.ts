@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { SanService } from 'src/app/services/san.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Sanatory } from 'src/app/model/Sanatory';
-import {Router} from '@angular/router'
+import { Router } from '@angular/router';
 import { CitiesService } from 'src/app/services/cities.service';
 import { DictEntity } from 'src/app/model/DictEntity';
 import { SanTypeService } from 'src/app/services/sanType.service';
@@ -13,50 +13,49 @@ import { SanTypeService } from 'src/app/services/sanType.service';
 @Component({
   selector: 'app-san-panel',
   templateUrl: './san-panel.component.html',
-  styleUrls: ['./san-panel.component.css', "../main-panel.component.css"]
+  styleUrls: ['./san-panel.component.css', '../main-panel.component.css'],
 })
 export class SanPanelComponent implements OnInit {
-
   title = 'Санатории';
-  @Input('ELEMENT_DATA')  ELEMENT_DATA!:  Sanatory[];
+  @Input('ELEMENT_DATA') ELEMENT_DATA!: Sanatory[];
 
-  displayedColumns = ['id','name','sanType','city','address','action'];
+  displayedColumns = ['id', 'name', 'sanType', 'city', 'address', 'action'];
 
   dataSource = new MatTableDataSource<Sanatory>(this.ELEMENT_DATA);
 
-  form:FormGroup;
+  form: FormGroup;
 
   originalSource = new MatTableDataSource<Sanatory>(this.ELEMENT_DATA);
 
-  size:number=10
+  size: number = 10;
 
-  total:number;
+  total: number;
 
-  currentPage:number = 0;
+  currentPage: number = 0;
 
-  pageCount:number;
+  pageCount: number;
 
-  pages:number[];
+  pages: number[];
 
-  cities:DictEntity[];
+  cities: DictEntity[];
 
-  cityId:string;
+  cityId: string;
 
-  sanTypes:DictEntity[];
+  sanTypes: DictEntity[];
 
-  sanTypeCode:string;
+  sanTypeCode: string;
 
-  searchValue:string;
+  searchValue: string;
 
-  timeout:NodeJS.Timeout
+  timeout: NodeJS.Timeout;
 
   constructor(
-    private service:SanService,
+    private service: SanService,
     public dialog: MatDialog,
     private router: Router,
-    private cityService:CitiesService,
-    private sanTypeService:SanTypeService
-    ) { }
+    private cityService: CitiesService,
+    private sanTypeService: SanTypeService
+  ) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -64,80 +63,97 @@ export class SanPanelComponent implements OnInit {
     this.getSanType();
   }
 
-  public getAll(){
-    if(this.cityId==="0") this.cityId = undefined;
-    if(this.sanTypeCode==="0") this.sanTypeCode = undefined;
-    let resp = this.service.getAll({cityId:this.cityId,sanTypeCode:this.sanTypeCode,name:this.searchValue,page:this.currentPage,size:this.size})
-    resp.subscribe(res=>{
-      this.originalSource.data = res['data'] as Sanatory[]
-      this.dataSource.data = this.originalSource.data.filter((_,index)=> index<this.size)
-      this.total = res['data']['total']
+  public getAll() {
+    if (this.cityId === '0') this.cityId = undefined;
+    if (this.sanTypeCode === '0') this.sanTypeCode = undefined;
+    let resp = this.service.getAll({
+      cityId: this.cityId,
+      sanTypeCode: this.sanTypeCode,
+      name: this.searchValue,
+      page: this.currentPage,
+      size: this.size,
+    });
+    resp.subscribe((res) => {
+      this.originalSource.data = res['data'] as Sanatory[];
+      this.dataSource.data = this.originalSource.data.filter(
+        (_, index) => index < this.size
+      );
+      this.total = res['data']['total'];
       this.calcPageCount();
-    })
+    });
   }
-  public editRow(id:string){
-    const selectedSan = this.dataSource.data.find(d=>d.id===Number(id))
-    console.log("бронь",selectedSan);
-    if(selectedSan)
-    this.router.navigate(['/main/booking', id],{state:{selectedSan:selectedSan}})
+  public editRow(id: string) {
+    const selectedSan = this.dataSource.data.find((d) => d.id === Number(id));
+    console.log('бронь', selectedSan);
+    if (selectedSan)
+      this.router.navigate(['/main/booking', id], {
+        state: { selectedSan: selectedSan },
+      });
   }
-  public deleteRow(row:Sanatory){
-   this.service.deleteOneById(row.id.toString()).subscribe(()=>this.getAll())
-   }
+  public deleteRow(row: Sanatory) {
+    this.service
+      .deleteOneById(row.id.toString())
+      .subscribe(() => this.getAll());
+  }
 
-   public filterSource(value:Event){
-     this.size = Number((value.target as HTMLSelectElement).value);
-     this.dataSource.data = this.originalSource.data.filter((_,index) => index<this.size);
-     this.calcPageCount()
-   }
+  public filterSource(value: Event) {
+    this.size = Number((value.target as HTMLSelectElement).value);
+    this.dataSource.data = this.originalSource.data.filter(
+      (_, index) => index < this.size
+    );
+    this.calcPageCount();
+  }
 
-   public changeCurrentPage(value:number){
-      this.currentPage = value
+  public changeCurrentPage(value: number) {
+    this.currentPage = value;
     console.log(this.currentPage);
   }
 
-  incrementPage(){
-    if(this.currentPage< this.pageCount - 1)
-    this.currentPage = this.currentPage + 1
+  incrementPage() {
+    if (this.currentPage < this.pageCount - 1)
+      this.currentPage = this.currentPage + 1;
     else this.currentPage = 1;
   }
 
-  decrementPage(){
-    if(this.currentPage>1)
-    this.currentPage = this.currentPage - 1
+  decrementPage() {
+    if (this.currentPage > 1) this.currentPage = this.currentPage - 1;
     else this.currentPage = this.pageCount;
   }
 
-  public calcPageCount(){
-    this.pageCount = Math.ceil(this.total/this.size)
-    this.pages = []
-    for(let i =0;i<this.pageCount;i++){
-     this.pages.push(i+1);
+  public calcPageCount() {
+    this.pageCount = Math.ceil(this.total / this.size);
+    this.pages = [];
+    for (let i = 0; i < this.pageCount; i++) {
+      this.pages.push(i + 1);
     }
-    if(this.size>this.total){
-      this.size = this.total
-    }     
+    if (this.size > this.total) {
+      this.size = this.total;
+    }
   }
 
-  getCities(){
+  getCities() {
     this.cityService.getAll().subscribe({
-      next: (res)=> {this.cities = res['data']; console.log(this.cities);
-      }
-    })
+      next: (res) => {
+        this.cities = res['data'];
+        console.log(this.cities);
+      },
+    });
   }
-  getSanType(){
+  getSanType() {
     this.sanTypeService.getAll().subscribe({
-      next: (res)=> {this.sanTypes = res['data']; console.log(this.sanTypes);
-      }
-    })
+      next: (res) => {
+        this.sanTypes = res['data'];
+        console.log(this.sanTypes);
+      },
+    });
   }
-  onSearch(){
-    if(this.timeout) clearTimeout(this.timeout)
-   this.timeout = setTimeout(()=>{
+  onSearch() {
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
       this.getAll();
-    },1500)
+    }, 1500);
   }
-  clear(){
+  clear() {
     this.sanTypeCode = undefined;
     this.searchValue = undefined;
     this.cityId = undefined;
