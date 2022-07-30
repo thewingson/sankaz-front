@@ -105,7 +105,6 @@ export class BookingPanelComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getRoomClasses();
-    console.log(BookingStatus['APPROVED']);
   }
 
   public getAll() {
