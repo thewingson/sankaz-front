@@ -105,6 +105,7 @@ export class BookingPanelComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getRoomClasses();
+    console.log(BookingStatus['APPROVED']);
   }
 
   public getAll() {
@@ -266,9 +267,14 @@ export class HistoryForBookingComponent implements OnInit {
   constructor(public service: BookingService) {}
 
   ngOnInit(): void {
-    this.service
-      .getBookingHistoryById(this.row.id.toString())
-      .subscribe((res) => (this.data = res['data'] as BookingHistory[]));
+    if (this.row && this.row.id)
+      this.service
+        .getBookingHistoryById(this.row.id.toString())
+        .subscribe((res) => (this.data = res['data'] as BookingHistory[]));
+  }
+
+  public statusText(text: string) {
+    return BookingStatus[text];
   }
 
   public formattedDate(date: string) {

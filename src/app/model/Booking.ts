@@ -1,4 +1,4 @@
-import { Room } from "./Room";
+import { Room } from './Room';
 
 export interface Booking {
   adults: number;
@@ -14,11 +14,12 @@ export interface Booking {
   status: string;
   telNumber: string;
   userId: number;
-  room:Room;
+  room: Room;
 }
 export enum BookingStatus {
   'WAITING' = 'Ожидание оплаты',
   'APPROVED' = 'Подтверждено',
   'PAID' = 'Оплачено',
   'CANCELLED' = 'Отменено',
+  'TRANSFERRED' = 'Переведен к мерчанту',
 }

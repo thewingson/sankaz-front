@@ -10,7 +10,7 @@
         <h4>
           {{ item && item.historyDate ? formattedDate(item.historyDate) : "" }}
           :
-          <strong>{{ item.status }}</strong>
+          <strong>{{ statusText(item.status) }}</strong>
         </h4>
       </div>
     </div>
